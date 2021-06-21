@@ -4,19 +4,19 @@ import Head from 'next/head';
 import 'antd/dist/antd.css';
 
 const App = ({ Component }) => {
-    return (
-        <>
-            <Head>
-                <meta charSet="utf-8" />
-                <title>Nodebird</title>
-            </Head>
-            <Component />
-        </>
-    )
-}
+  return (
+    <>
+      <Head>
+        <meta charSet="utf-8" />
+        <title>Nodebird</title>
+      </Head>
+      <Component />
+    </>
+  );
+};
 
 App.propTypes = {
-    Component: PropTypes.elementType.isRequired,
-}
+  Component: PropTypes.elementType.isRequired,
+};
 
 export default App;
