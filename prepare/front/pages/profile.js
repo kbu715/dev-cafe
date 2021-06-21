@@ -1,11 +1,11 @@
 import AppLayout from "../components/AppLayout";
 
-const Home = () => {
+const Profile = () => {
     return (
         <AppLayout>
-            <div>Hello~</div>
+            <div>내 프로필</div>
         </AppLayout>
     )
 }
 
-export default Home;
+export default Profile;
