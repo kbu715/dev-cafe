@@ -14,7 +14,7 @@ const SearchInput = styled(Input.Search)`
 
 const AppLayout = ({ children }) => {
   // if isLoggedIn changes, AppLayout Component will be re-rendered on its own.
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const { isLoggedIn } = useSelector((state) => state.user);
 
   return (
     <div>
