@@ -60,6 +60,7 @@ const reducer = (state = initialState, action) => {
     case ADD_POST: {
       return {
         ...state,
+        //TODO: key 중복 문제 해결!!!
         mainPosts: [dummyPost, ...state.mainPosts],
         postAdded: true,
       };
