@@ -1,38 +1,60 @@
+import { HYDRATE } from 'next-redux-wrapper';
+
 const initialState = {
-  name: 'paul',
-  age: 31,
-  password: 'babo',
+  user: {
+    isLoggedIn: false,
+    user: null,
+    signUpData: {},
+    loginData: {},
+  },
+  post: {
+    mainPosts: [],
+  },
 };
 
-// const changeNickname = {
-//   type: 'CHANGE_NICKNAME',
-//   data: 'boogi',
-// };
-
-// action을 동적으로 만들어주는 함수를 생성해보자.
-// action creator
-/*
-const changeNickname = (data) => {
+export const loginAction = (data) => {
   return {
-    type: 'CHANGE_NICKNAME',
+    type: 'LOG_IN',
     data,
   };
 };
-*/
 
-// dispatch process ✔
-
-// store.dispatch(changeNickname('aaa'));
+export const logoutAction = (data) => {
+  return {
+    type: 'LOG_OUT',
+    data,
+  };
+};
 
 // reducer is function
 // (previous state, action) => next state
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'CHANGE_NICKNAME':
+    case HYDRATE:
       return {
         ...state,
-        name: action.data,
+        ...action.payload,
       };
+    case 'LOG_IN':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          isLoggedIn: true,
+          user: action.data,
+        },
+      };
+    case 'LOG_OUT':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          isLoggedIn: false,
+          user: null,
+        },
+      };
+    default:
+      return state;
   }
 };
 
