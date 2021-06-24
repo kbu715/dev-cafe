@@ -1,4 +1,4 @@
-import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
+import { all, call, fork, put, takeLatest, throttle } from 'redux-saga/effects';
 import axios from 'axios';
 
 function loginAPI(data) {
@@ -31,7 +31,7 @@ function* login(action) {
 
 function* watchLogIn() {
   // 2️⃣
-  yield takeLatest('LOG_IN_REQUEST', login);
+  yield throttle('LOG_IN_REQUEST', login, 2000);
 }
 
 function* watchLogOut() {
@@ -66,6 +66,12 @@ export default function* rootSaga() {
 // 응답을 취소해서 응답이 하나만 오게 만든다.
 // 하지만 프론트에서 처음엔 1개의 응답만 보이겠지만 새로고침을 하면 백엔드에 2개의 데이터가 존재하기 때문에 똑같은 응답이 2개가 뜨는 문제가 있다.
 // 이 문제를 해결하기 위해 throttle? 이 존재한다.
+
+// throttle : 특정 시간 안에서는 1번만 요청이 가게 만든다.
+// 특수한 상황 아니면 그냥 takeLatest 쓰자.
+// 대신 서버쪽에서 2번의 동일 요청이 오면 막도록 한다.
+// 요청이 DDOS가 될만큼 많이 오는 경우가 있다면 throttle 써야지 뭐...
+// 보통은 프론트에서 takeLatest 쓴다.
 
 // fork : 비동기 함수 호출
 // call : 동기 함수 호출 (await 와 같은 기능)
