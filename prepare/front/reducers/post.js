@@ -84,7 +84,7 @@ const reducer = (state = initialState, action) => {
     case ADD_POST_SUCCESS:
       return {
         ...state,
-        //TODO: key 중복 문제 해결!!!
+        // TODO: key 중복 문제 해결!!!
         mainPosts: [dummyPost, ...state.mainPosts],
         addPostLoading: false,
         addPostDone: true,
