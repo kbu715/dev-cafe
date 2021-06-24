@@ -9,8 +9,17 @@ import rootSaga from '../sagas';
 const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
 
+  // customized action logger middleware
+  const loggerMiddleware =
+    ({ dispatch, getState }) =>
+    (next) =>
+    (action) => {
+      console.log(action);
+      return next(action);
+    };
+
   // saga or thunk in array
-  const middlewares = [sagaMiddleware];
+  const middlewares = [sagaMiddleware, loggerMiddleware];
 
   // 중앙 데이터들이 어떻게 변하는지 다 보이기 때문에 보안에 취약할 수 있다.
   // 배포용일땐 DevTool 연결 하지 않는다.
