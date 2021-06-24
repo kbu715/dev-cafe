@@ -1,4 +1,4 @@
-import { all, call, fork, put, take } from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 function loginAPI(data) {
@@ -31,21 +31,15 @@ function* login(action) {
 
 function* watchLogIn() {
   // 2️⃣
-  while (true) {
-    yield take('LOG_IN_REQUEST', login);
-  }
+  yield takeEvery('LOG_IN_REQUEST', login);
 }
 
 function* watchLogOut() {
-  while (true) {
-    yield take('LOG_OUT_REQUEST');
-  }
+  yield takeEvery('LOG_OUT_REQUEST');
 }
 
 function* watchAddPost() {
-  while (true) {
-    yield take('ADD_POST_REQUEST');
-  }
+  yield takeEvery('ADD_POST_REQUEST');
 }
 
 export default function* rootSaga() {
@@ -57,9 +51,11 @@ export default function* rootSaga() {
 
 // take : 인자로 받은 action이 실행될 때까지 기다리겠다.
 // 하지만 단 한번만 실행된다. 그래서 while(true)로 감싸는 방법이 있다.
-// while(true) -> 보통의 경우 컴퓨터가 먹통이 된다. 하지만 generator에서
-// 한번 실행하고 멈추고, 다음을 기다린다.
-// 진정한 이벤트 리스너처럼 동작을 한다.
+// takeEvery로 while(true) 대신할 수 있다.
+
+// 여기서 차이점!!
+// while take는 동기적으로 동작하지만
+// takeEvery는 비동기적으로 동작
 
 // fork : 비동기 함수 호출
 // call : 동기 함수 호출 (await 와 같은 기능)
