@@ -1,21 +1,23 @@
-import { all, call, fork, put, takeLatest, throttle } from 'redux-saga/effects';
-import axios from 'axios';
+import { all, call, delay, fork, put, takeLatest, throttle } from 'redux-saga/effects';
+// import axios from 'axios';
 
-function loginAPI(data) {
-  // 4️⃣
-  return axios.post('/api/login', data);
-}
+// function loginAPI(data) {
+//   // 4️⃣
+//   return axios.post('/api/login', data);
+// }
 
 // action이 매개변수로 전달이 된다.
-function* login(action) {
+function* login() {
   // 3️⃣
   try {
+    // 서버를 구현하기 전까지는 delay로 비동기적인 효과를 주자.
+    yield delay(1000);
     // loginAPI(action.data) === call(loginAPI, action.data)
-    const result = yield call(loginAPI, action.data);
+    // const result = yield call(loginAPI, action.data);
     // 5️⃣
     yield put({
       type: 'LOG_IN_SUCCESS',
-      data: result.data,
+      //   data: result.data,
     });
   } catch (error) {
     // 6️⃣
