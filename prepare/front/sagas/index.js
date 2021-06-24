@@ -31,15 +31,21 @@ function* login(action) {
 
 function* watchLogIn() {
   // 2️⃣
-  yield take('LOG_IN_REQUEST', login);
+  while (true) {
+    yield take('LOG_IN_REQUEST', login);
+  }
 }
 
 function* watchLogOut() {
-  yield take('LOG_OUT_REQUEST');
+  while (true) {
+    yield take('LOG_OUT_REQUEST');
+  }
 }
 
 function* watchAddPost() {
-  yield take('ADD_POST_REQUEST');
+  while (true) {
+    yield take('ADD_POST_REQUEST');
+  }
 }
 
 export default function* rootSaga() {
@@ -48,7 +54,12 @@ export default function* rootSaga() {
 }
 
 // all : 배열을 받는다. 배열안에 들어있는 것들을 동시에 실행해준다.
+
 // take : 인자로 받은 action이 실행될 때까지 기다리겠다.
+// 하지만 단 한번만 실행된다. 그래서 while(true)로 감싸는 방법이 있다.
+// while(true) -> 보통의 경우 컴퓨터가 먹통이 된다. 하지만 generator에서
+// 한번 실행하고 멈추고, 다음을 기다린다.
+// 진정한 이벤트 리스너처럼 동작을 한다.
 
 // fork : 비동기 함수 호출
 // call : 동기 함수 호출 (await 와 같은 기능)
