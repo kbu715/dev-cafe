@@ -104,6 +104,8 @@ const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
 ![image](https://user-images.githubusercontent.com/63832678/123230611-65dc5c00-d512-11eb-93fd-0013a6743b99.png)
 
 - yield 중단점 역할
+- yield가 테스트할 때 사용하면 좋다.
+- 한줄 한줄 실행하면서 테스트
 
 #### <무한 반복 활용>
 
