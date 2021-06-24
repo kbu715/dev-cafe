@@ -37,9 +37,9 @@ const dummyUser = (data) => ({
   ...data,
   nickname: '방루이',
   id: 1,
-  Posts: [],
-  Followings: [],
-  Followers: [],
+  Posts: [{ id: 1 }],
+  Followings: [{ nickname: '호날두' }, { nickname: '메시' }, { nickname: '키미히' }],
+  Followers: [{ nickname: '호날두' }, { nickname: '메시' }, { nickname: '키미히' }],
 });
 
 export const signUpAction = (data) => {

@@ -1,12 +1,13 @@
-import React, { useRef, useCallback, useState, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addPost } from '../reducers/post';
+import useInput from '../hooks/useInput';
 
 const PostForm = () => {
-  const { imagePaths, postAdded } = useSelector((state) => state.post);
-  const [text, setText] = useState('');
+  const { imagePaths, addPostDone } = useSelector((state) => state.post);
+  const [text, onChangeText, setText] = useInput('');
   const dispatch = useDispatch();
   const imageInput = useRef();
 
@@ -14,19 +15,16 @@ const PostForm = () => {
     imageInput.current.click();
   }, [imageInput.current]);
 
+  // 서버에서 에러가 날 수도 있기에 이렇게 처리하는게 옳다.
   useEffect(() => {
-    if (postAdded) {
+    if (addPostDone) {
       setText('');
     }
-  }, [postAdded]);
-
-  const onChangeText = useCallback((e) => {
-    setText(e.target.value);
-  }, []);
+  }, [addPostDone]);
 
   const onSubmit = useCallback(() => {
-    dispatch(addPost);
-  }, []);
+    dispatch(addPost(text));
+  }, [text]);
 
   return (
     <Form style={{ margin: '10px 0 20px' }} encType="multipart/form-data" onFinish={onSubmit}>
