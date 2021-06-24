@@ -115,3 +115,14 @@ const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
 ![image](https://user-images.githubusercontent.com/63832678/123231670-5f9aaf80-d513-11eb-8108-4427accbe985.png)
 
 📌 이 성질을 **saga**가 활용한 것
+
+---
+
+### takeLatest 클린 2번한 경우(요청 2번)
+
+이미지 참고
+![image](https://user-images.githubusercontent.com/63832678/123251020-b1e4cc00-d525-11eb-8ac5-b070fd676a91.png)
+
+- 프론트에서 처음엔 1개의 글만 보이겠지만 새로고침을 하면 백엔드에 2개의 데이터가 존재하기 때문에 똑같은 글이 2개가 뜨는 문제가 있다.
+
+- throttle 로 해결!

@@ -1,4 +1,4 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
+import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 function loginAPI(data) {
@@ -31,15 +31,15 @@ function* login(action) {
 
 function* watchLogIn() {
   // 2️⃣
-  yield takeEvery('LOG_IN_REQUEST', login);
+  yield takeLatest('LOG_IN_REQUEST', login);
 }
 
 function* watchLogOut() {
-  yield takeEvery('LOG_OUT_REQUEST');
+  yield takeLatest('LOG_OUT_REQUEST');
 }
 
 function* watchAddPost() {
-  yield takeEvery('ADD_POST_REQUEST');
+  yield takeLatest('ADD_POST_REQUEST');
 }
 
 export default function* rootSaga() {
@@ -56,6 +56,16 @@ export default function* rootSaga() {
 // 여기서 차이점!!
 // while take는 동기적으로 동작하지만
 // takeEvery는 비동기적으로 동작
+
+// 실수로 두번 클릭하는 거 방지하기 위해서
+// 보통은 takeEvery 보다 takeLatest 많이 쓴다.
+// 완료된건 그냥 나두고 동시에 로딩중인 거 중에 마지막 것만 실행한다.
+
+// 조금 더 자세하게 들어가보면
+// takeLatest는 요청이 두번 들어가면 요청을 취소하는게 아니라
+// 응답을 취소해서 응답이 하나만 오게 만든다.
+// 하지만 프론트에서 처음엔 1개의 응답만 보이겠지만 새로고침을 하면 백엔드에 2개의 데이터가 존재하기 때문에 똑같은 응답이 2개가 뜨는 문제가 있다.
+// 이 문제를 해결하기 위해 throttle? 이 존재한다.
 
 // fork : 비동기 함수 호출
 // call : 동기 함수 호출 (await 와 같은 기능)
