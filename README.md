@@ -126,3 +126,31 @@ const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
 - 프론트에서 처음엔 1개의 글만 보이겠지만 새로고침을 하면 백엔드에 2개의 데이터가 존재하기 때문에 똑같은 글이 2개가 뜨는 문제가 있다.
 
 - throttle 로 해결!
+
+---
+
+### immer
+`npm install immer`
+
+불변성을 다룰때 필수템!!!
+
+npm install immer use-immer (immer의 hook ver.)
+
+### redux toolkit
+
+리덕스 코드량 줄여주는 툴.
+
+### placeholder.com
+
+
+### 인피니트 스크롤링 
+
+- scrollY : 얼마나 내렸는지
+- clientHeight : 화면 보이는 길이
+- scrollHeight : 총 길이
+
+### react-virtualized
+
+인스타그램 같은 효과
+
+virtualized list

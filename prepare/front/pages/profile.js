@@ -1,14 +1,25 @@
-import React from 'react';
-import AppLayout from '../components/AppLayout';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
+import Router from 'next/router';
+import { useSelector } from 'react-redux';
+import AppLayout from '../components/AppLayout';
 
 import NicknameEditForm from '../components/NicknameEditForm';
 import FollowList from '../components/FollowList';
 
 const Profile = () => {
-  const followerList = [{ nickname: '짜장면' }, { nickname: '탕수육' }, { nickname: '팔보채' }];
-  const followingList = [{ nickname: '짬뽕' }, { nickname: '깐풍기' }, { nickname: '볶음밥' }];
+  const { me } = useSelector((state) => state.user);
 
+  // 로그인 안한채로 프로필 페이지가면 이렇게 처리
+  useEffect(() => {
+    if (!me?.id) {
+      Router.push('/');
+    }
+  }, [me && me.id]);
+
+  if (!me) {
+    return null;
+  }
   return (
     <>
       <Head>
@@ -17,8 +28,8 @@ const Profile = () => {
       </Head>
       <AppLayout>
         <NicknameEditForm />
-        <FollowList header="팔로잉 목록" data={followingList} />
-        <FollowList header="팔로워 목록" data={followerList} />
+        <FollowList header="팔로잉" data={me.Followings} />
+        <FollowList header="팔로워" data={me.Followers} />
       </AppLayout>
     </>
   );
