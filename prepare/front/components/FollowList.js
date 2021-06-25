@@ -7,6 +7,7 @@ const FollowList = ({ header, data }) => {
   const listStyle = useMemo(() => ({ marginBottom: '20px' }));
   const loadMoreStyle = useMemo(() => ({ textAlign: 'center', margin: '10px 0' }));
   const listItemStyle = useMemo(() => ({ marginTop: '20px' }));
+
   return (
     <List
       style={listStyle}

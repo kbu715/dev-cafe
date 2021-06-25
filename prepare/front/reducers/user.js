@@ -56,8 +56,16 @@ const dummyUser = (data) => ({
   nickname: '방루이',
   id: 1,
   Posts: [{ id: 1 }],
-  Followings: [{ nickname: '호날두' }, { nickname: '메시' }, { nickname: '키미히' }],
-  Followers: [{ nickname: '호날두' }, { nickname: '메시' }, { nickname: '키미히' }],
+  Followings: [
+    { id: 1, nickname: '호날두' },
+    { id: 2, nickname: '메시' },
+    { id: 3, nickname: '키미히' },
+  ],
+  Followers: [
+    { id: 1, nickname: '호날두' },
+    { id: 2, nickname: '메시' },
+    { id: 3, nickname: '키미히' },
+  ],
 });
 
 export const signUpAction = (data) => {
@@ -90,6 +98,34 @@ export const signUp = (data) => {
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case FOLLOW_REQUEST:
+        draft.followLoading = true;
+        draft.followError = null;
+        draft.followDone = false;
+        break;
+      case FOLLOW_SUCCESS:
+        draft.followLoading = false;
+        draft.me.Followings.push({ id: action.data.id, nickname: action.data.nickname });
+        draft.followDone = true;
+        break;
+      case FOLLOW_FAILURE:
+        draft.followLoading = false;
+        draft.followError = action.error;
+        break;
+      case UNFOLLOW_REQUEST:
+        draft.unfollowLoading = true;
+        draft.unfollowError = null;
+        draft.unfollowDone = false;
+        break;
+      case UNFOLLOW_SUCCESS:
+        draft.unfollowLoading = false;
+        draft.me.Followings = draft.me.Followings.filter((v) => v.id !== action.data.id);
+        draft.unfollowDone = true;
+        break;
+      case UNFOLLOW_FAILURE:
+        draft.unfollowLoading = false;
+        draft.unfollowError = action.error;
+        break;
       case LOG_IN_REQUEST:
         draft.logInLoading = true;
         draft.logInError = null;
