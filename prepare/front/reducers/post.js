@@ -61,16 +61,16 @@ export const addComment = (data) => ({
   data,
 });
 
-const dummyPost = {
+const dummyPost = (data) => ({
   id: 2,
-  content: '더미데이터입니다.',
+  content: data,
   User: {
     id: 1,
     nickname: '방루이',
   },
   Images: [],
   Comments: [],
-};
+});
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -85,7 +85,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         // TODO: key 중복 문제 해결!!!
-        mainPosts: [dummyPost, ...state.mainPosts],
+        mainPosts: [dummyPost(action.data), ...state.mainPosts],
         addPostLoading: false,
         addPostDone: true,
       };
