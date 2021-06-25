@@ -141,3 +141,16 @@ npm install immer use-immer (immer의 hook ver.)
 리덕스 코드량 줄여주는 툴.
 
 ### placeholder.com
+
+
+### 인피니트 스크롤링 
+
+- scrollY : 얼마나 내렸는지
+- clientHeight : 화면 보이는 길이
+- scrollHeight : 총 길이
+
+### react-virtualized
+
+인스타그램 같은 효과
+
+virtualized list
