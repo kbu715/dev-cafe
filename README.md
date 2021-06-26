@@ -174,3 +174,21 @@ app.post('/post') 게시글 가져오면서  조회수 1 올린다.
 
 `swagger` [https://swagger.io/](https://swagger.io/) 
 api 문서 만들때 많이 쓴다.
+
+---
+
+### 시퀄라이즈 관계 설정
+
+`hasMany`
+`hasOne`
+`belongsTo`
+`belongsToMany`
+
+#### 다 대 다 관계에서는 중간에 테이블이 임의로 생긴다.
+
+post - hashtag => posthashtag
+![image](https://user-images.githubusercontent.com/63832678/123513693-666b2300-d6c9-11eb-99bf-4e6b8515a762.png)
+
+#### Post 리트윗 관계 설명
+
+![image](https://user-images.githubusercontent.com/63832678/123514224-c7482a80-d6cc-11eb-82e3-5f590e559089.png)
