@@ -154,3 +154,23 @@ npm install immer use-immer (immer의 hook ver.)
 인스타그램 같은 효과
 
 virtualized list
+
+### backend
+
+`app.get` -> 가져오다
+`app.post` -> 생성하다
+`app.put` -> 전체 수정
+`app.delete` -> 제거
+`app.patch` -> 부분 수정
+`app.options` -> 찔러보기? (서버야 요청보내면 받아줄 수 있어?)
+`app.head` -> 헤더만 가져오기
+
+애매하면 post 쓴다.
+
+app.post('/login') 로그인은 post인가 get인가
+app.post('/post') 게시글 가져오면서  조회수 1 올린다.
+
+보통 프론트엔드 개발자와 백엔드 개발자가 합의를 한다 
+
+`swagger` [https://swagger.io/](https://swagger.io/) 
+api 문서 만들때 많이 쓴다.
