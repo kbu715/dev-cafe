@@ -197,3 +197,7 @@ post - hashtag => posthashtag
 ### npx sequelize db:create
 
 이 명령어 실행 먼저 하고 db sync 해준다.
+
+### 프로그램 구조를 기억하자
+
+![image](https://user-images.githubusercontent.com/63832678/123517529-6fb1bb00-d6dc-11eb-9b2d-e8751be27e30.png)
