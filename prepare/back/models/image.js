@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Image = sequelize.difine('Image', {
+    const Image = sequelize.define('Image', {
         // id 기본적으로 들어있다.
         src: {
             type: DataTypes.STRING(200),

@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.difine('User', { // MySQL 에는 users 테이블 생성
+    const User = sequelize.define('User', { // MySQL 에는 users 테이블 생성
         // id 기본적으로 들어있다.
         email: {
             // Column에 대한 정보들 

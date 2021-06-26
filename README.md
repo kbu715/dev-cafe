@@ -192,3 +192,8 @@ post - hashtag => posthashtag
 #### Post 리트윗 관계 설명
 
 ![image](https://user-images.githubusercontent.com/63832678/123514224-c7482a80-d6cc-11eb-82e3-5f590e559089.png)
+
+
+### npx sequelize db:create
+
+이 명령어 실행 먼저 하고 db sync 해준다.
