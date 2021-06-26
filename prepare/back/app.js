@@ -6,7 +6,7 @@ const app = express();
 
 db.sequelize.sync()
     .then(() => {
-        console.log('🌈DB Connected')
+        console.log('🌈  DB Connected 🌈')
     })
     .catch(console.error);
 
