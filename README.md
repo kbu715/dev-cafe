@@ -201,3 +201,30 @@ post - hashtag => posthashtag
 ### 프로그램 구조를 기억하자
 
 ![image](https://user-images.githubusercontent.com/63832678/123517529-6fb1bb00-d6dc-11eb-9b2d-e8751be27e30.png)
+
+### POST PUT PATCH, data 넘길 수 있다.
+
+아래 예시처럼 두번째 인자로 POST, PUT, PATCH는 data를 넘길 수 있다.
+GET DELETE 는 안넘긴다.
+
+```javascript
+function signUpAPI(data) {
+  return axios.post('http://localhost:3065/user', data);
+}
+```
+
+
+### req / res
+
+req/res 는 header(상태, 용량, 시간, 쿠키) 와
+body(데이터)로 구성되어 있다.
+
+### Header Status
+
+200 성공
+300 리다이렉트
+400 클라이언트 에러
+500 서버 에러
+
+400번대 500번대 이렇게 분류한다.
+403 에러는 클라이언트에서 잘못 보내서 생기는 에러
