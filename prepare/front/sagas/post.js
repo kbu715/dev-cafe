@@ -1,4 +1,4 @@
-import { all, delay, fork, put, takeLatest } from 'redux-saga/effects';
+import { all, fork, put, takeLatest } from 'redux-saga/effects';
 import shortid from 'shortid';
 import {
   ADD_COMMENT_FAILURE,
@@ -20,7 +20,7 @@ import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
 function* addPost(action) {
   try {
     // const result = yield call(addPostAPI, action.data);
-    yield delay(1000);
+    // yield delay(1000);
     const id = shortid.generate();
     yield put({
       type: ADD_POST_SUCCESS,
@@ -44,7 +44,7 @@ function* addPost(action) {
 
 function* removePost(action) {
   try {
-    yield delay(1000);
+    // yield delay(1000);
     yield put({
       type: REMOVE_POST_SUCCESS,
       data: action.data, // action.data = post.id
@@ -65,7 +65,7 @@ function* removePost(action) {
 function* addComment(action) {
   try {
     // const result = yield call(addCommentAPI, action.data);
-    yield delay(1000);
+    // yield delay(1000);
     yield put({
       type: ADD_COMMENT_SUCCESS,
       data: action.data,
@@ -81,7 +81,7 @@ function* addComment(action) {
 
 function* loadPosts() {
   try {
-    yield delay(1000);
+    // yield delay(1000);
     yield put({
       type: LOAD_POSTS_SUCCESS,
       data: generateDummyPost(10),
