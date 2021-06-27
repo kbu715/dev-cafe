@@ -20,17 +20,20 @@ import {
 } from '../reducers/user';
 
 function signUpAPI(data) {
-  return axios.post('http://localhost:3065/user', data);
+  return axios.post('/user', data);
+}
+
+function logInAPI(data) {
+  return axios.post('/user/login', data);
 }
 
 function* logIn(action) {
   try {
     console.log('saga logIn');
-    // const result = yield call(logInAPI);
-    // yield delay(1000);
+    const result = yield call(logInAPI, action.data);
     yield put({
       type: LOG_IN_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);

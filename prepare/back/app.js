@@ -3,6 +3,7 @@ const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 const db = require('./models');
 const cors = require('cors');
+const passportConfig = require('./passport');
 
 const app = express();
 
@@ -12,6 +13,8 @@ db.sequelize
     console.log('🌈  DB Connected 🌈');
   })
   .catch(console.error);
+
+passportConfig();
 
 app.use(cors({
     origin: '*',
