@@ -228,3 +228,8 @@ body(데이터)로 구성되어 있다.
 
 400번대 500번대 이렇게 분류한다.
 403 에러는 클라이언트에서 잘못 보내서 생기는 에러
+
+
+### HTTP 상태 코드
+
+[https://developer.mozilla.org/ko/docs/Web/HTTP/Status](https://developer.mozilla.org/ko/docs/Web/HTTP/Status)
