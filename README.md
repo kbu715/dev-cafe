@@ -121,6 +121,7 @@ const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
 ### takeLatest 클린 2번한 경우(요청 2번)
 
 이미지 참고
+
 ![image](https://user-images.githubusercontent.com/63832678/123251020-b1e4cc00-d525-11eb-8ac5-b070fd676a91.png)
 
 - 프론트에서 처음엔 1개의 글만 보이겠지만 새로고침을 하면 백엔드에 2개의 데이터가 존재하기 때문에 똑같은 글이 2개가 뜨는 문제가 있다.
@@ -176,6 +177,9 @@ app.post('/post') 게시글 가져오면서  조회수 1 올린다.
 api 문서 만들때 많이 쓴다.
 
 ---
+
+### 시퀄라이즈 초기 세팅
+npx sequelize init
 
 ### 시퀄라이즈 관계 설정
 
