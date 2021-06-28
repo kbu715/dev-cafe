@@ -42,7 +42,7 @@ router.post('/login', (req, res, next) => { // 미들웨어를 확장하는 방�
   })(req, res, next);
 });
 
-router.post('/user/logout', (req, res, next) => {
+router.post('/logout', (req, res, next) => {
   req.logout();
   req.session.destroy();
   res.send('logout success');
