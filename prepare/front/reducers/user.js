@@ -51,6 +51,7 @@ export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
 export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
 export const REMOVE_POST_OF_ME = 'REMOVE_POST_OF_ME';
 
+/*
 const dummyUser = (data) => ({
   ...data,
   nickname: '방루이',
@@ -67,6 +68,7 @@ const dummyUser = (data) => ({
     { id: 3, nickname: '키미히' },
   ],
 });
+*/
 
 export const signUpAction = (data) => {
   return {
@@ -133,7 +135,7 @@ const reducer = (state = initialState, action) => {
         break;
       case LOG_IN_SUCCESS:
         draft.logInLoading = false;
-        draft.me = dummyUser(action.data);
+        draft.me = action.data;
         draft.logInDone = true;
         break;
       case LOG_IN_FAILURE:

@@ -233,3 +233,18 @@ body(데이터)로 구성되어 있다.
 ### HTTP 상태 코드
 
 [https://developer.mozilla.org/ko/docs/Web/HTTP/Status](https://developer.mozilla.org/ko/docs/Web/HTTP/Status)
+
+
+### cookie와 session이 왜 필요한가?
+
+백엔드 서버에서는 로그인 정보를 통째로 갖고있지만 (이 통째로 있는 게 session)
+
+브라우저에서는 그대로 갖고있으면 보안상 위험이 존재하므로
+
+Cookie로 'cxlhy' 와 같은 랜덤한 문자를 보내줘서 보안의 위협을 최소로한다.
+
+![image](https://user-images.githubusercontent.com/63832678/123567301-c9110b80-d7fc-11eb-86c8-b143fc3f35ac.png)
+
+
+- 백엔드 서버에서도 로그인 정보를 통째로 갖고 있으면 메모리에 부담이 되므로 passport가 id값만 Cookie에 매칭되도록 한다. 
+- 나중에는 아예 세션 저장용 DB로 `redis`를 사용한다.

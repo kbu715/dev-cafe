@@ -15,15 +15,22 @@ router.post('/login', (req, res, next) => { // 미들웨어를 확장하는 방�
     if(info) {
       return res.status(401).send(info.reason); // 401 Unauthorized
     }
-    return req.login(user, async (loginErr) => {
+    return req.login(user, async (loginErr) => { // req.login() 동시에 실행되는게 passport/index -> serializeUser()
       if(loginErr) { // Passport error -> 살면서 볼 일 없을 것!
         console.error(loginErr);
         return next(loginErr);
       }
-      return res.json(user);
+      // res.setHeader('Cookie', 'cxlhy') 
+      return res.status(200).json(user);
     })
   })(req, res, next);
 });
+
+router.post('/user/logout', (req, res, next) => {
+  req.logout();
+  req.session.destroy();
+  res.send('logout success');
+})
 
 router.post('/', async (req, res, next) => {
   // POST /user/
