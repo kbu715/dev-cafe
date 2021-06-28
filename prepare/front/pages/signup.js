@@ -9,11 +9,18 @@ import { SIGN_UP_REQUEST } from '../reducers/user';
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const { signUpLoading, signUpDone, signUpError } = useSelector((state) => state.user);
+  const { signUpLoading, signUpDone, signUpError, me } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (me?.id) {
+      Router.replace('/'); // 뒤로가기 했을 때 회원가입 창이 다시 나오지 않게 하기 위해선 replace를 쓴다.
+      // replace -> history에서 아예 사라진다.
+    }
+  }, [me?.id]);
 
   useEffect(() => {
     if (signUpDone) {
-      Router.push('/');
+      Router.replace('/');
     }
   }, [signUpDone]);
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const { User } = require('../models');
+const { User, Post } = require('../models');
 const passport = require('passport');
 
 const router = express.Router();
@@ -20,8 +20,24 @@ router.post('/login', (req, res, next) => { // 미들웨어를 확장하는 방�
         console.error(loginErr);
         return next(loginErr);
       }
+      const fullUserWithoutPassword = await User.findOne({ 
+        where: { id: user.id },
+        attributes: {
+          exclude: ['password'], // 비밀번호 제외하고 갖고오겠다.
+        },
+        include: [{ 
+            model: Post,  // User <-> Post hasMany 관계라서 Post가 복수형이 되어 me.Posts가 된다.
+        }, {
+          model: User,
+          as: 'Followings',
+        }, {
+          model: User,
+          as: 'Followers',
+        }
+        ]
+      });
       // res.setHeader('Cookie', 'cxlhy') 
-      return res.status(200).json(user);
+      return res.status(200).json(fullUserWithoutPassword);
     })
   })(req, res, next);
 });
@@ -47,7 +63,7 @@ router.post('/', async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
     await User.create({
       email: req.body.email,
-      nickname: req.body.email,
+      nickname: req.body.nickname,
       password: hashedPassword,
     });
     res.status(201).send('ok'); // res.send('ok'); 웬만하면 status 값 같이 적어준다. // 201은 잘 생성된 것 까지 의미한다.
@@ -58,3 +74,4 @@ router.post('/', async (req, res, next) => {
 });
 
 module.exports = router;
+
