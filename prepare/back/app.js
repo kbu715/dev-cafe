@@ -48,6 +48,13 @@ app.get('/', (req, res) => {
 app.use('/post', postRouter);
 app.use('/user', userRouter);
 
+//에러처리 미들웨어 직접 적어줄 수도 있다.
+/*
+app.use((err, req, res, next) => {
+
+});
+*/
+
 app.listen(3065, () => console.log(`🌈 Server is running`));
 
 // app.use('/post', postRouter);
