@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       charset: 'utf8',
-      cllate: 'utf8_general_ci',
+      collate: 'utf8_general_ci',
     },
   );
   Image.associate = (db) => {
