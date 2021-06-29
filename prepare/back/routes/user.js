@@ -28,12 +28,15 @@ router.post('/login', isNotLoggedIn, (req, res, next) => { // 미들웨어를 �
         },
         include: [{ 
             model: Post,  // User <-> Post hasMany 관계라서 Post가 복수형이 되어 me.Posts가 된다.
+            attributes: ['id'],
         }, {
           model: User,
           as: 'Followings',
+          attributes: ['id'],
         }, {
           model: User,
           as: 'Followers',
+          attributes: ['id'],
         }
         ]
       });
@@ -49,7 +52,39 @@ router.post('/logout', isLoggedIn, (req, res, next) => {
   res.send('logout success');
 })
 
-router.post('/', isNotLoggedIn, async (req, res, next) => {
+router.get('/', async (req, res, next) => { // GET /user // 내 로그인 정보 불러오기
+    try {
+      if(req.user) { 
+        const fullUserWithoutPassword = await User.findOne({ 
+          where: { id: req.user.id },
+          attributes: {
+            exclude: ['password'],
+          },
+          include: [{ 
+              model: Post,
+              attributes: ['id'], // 데이터 효율을 위해서, 숫자만 세면 되므로 id 속성만 갖고온다.
+          }, {
+            model: User,
+            as: 'Followings',
+            attributes: ['id'],
+          }, {
+            model: User,
+            as: 'Followers',
+            attributes: ['id'],
+          }
+          ]
+        });
+        res.status(200).json(fullUserWithoutPassword);
+      } else {
+        res.status(200).json(null);
+      }
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+})
+
+router.post('/', isNotLoggedIn, async (req, res, next) => { // 회원가입
   // POST /user/
   try {
     const exist = await User.findOne({
