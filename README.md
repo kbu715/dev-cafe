@@ -252,3 +252,14 @@ Cookie로 'cxlhy' 와 같은 랜덤한 문자를 보내줘서 보안의 위협�
 
 - 백엔드 서버에서도 로그인 정보를 통째로 갖고 있으면 메모리에 부담이 되므로 passport가 id값만 Cookie에 매칭되도록 한다. 
 - 나중에는 아예 세션 저장용 DB로 `redis`를 사용한다.
+
+### 쿠키를 공유하게 된다면 보안이 더 강화되야 하기 때문에
+
+```javascript
+app.use(cors({
+    origin: 'http://localhost:3060', 
+    credentials: true, 
+}));
+```
+
+- origin: '*' 는 위험하다.

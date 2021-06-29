@@ -24,7 +24,7 @@ db.sequelize
 passportConfig();
 
 app.use(cors({
-    origin: '*',
+    origin: 'http://localhost:3060', // origin: true, 해도 된다. 
     credentials: true, //access - control - allow - credentials : true // 쿠키를 전달하고자 한다면 이 설정을
 }));
 // front에서 보낸 data를 req.body에 넣어주는 역할을 한다.
