@@ -18,19 +18,11 @@ import {
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
 
 function addPostAPI(data) {
-  return axios.post(
-    '/post',
-    { content: data },
-    {
-      withCredentials: true, // front에서도 쿠키를 공유하기 위한 설정
-    },
-  );
+  return axios.post('/post', { content: data });
 }
 
 function addCommentAPI(data) {
-  return axios.post(`/post/${data.postId}/comment`, data, {
-    withCredentials: true,
-  }); // POST /post/1/comment
+  return axios.post(`/post/${data.postId}/comment`, data); // POST /post/1/comment
 }
 
 function* addPost(action) {
