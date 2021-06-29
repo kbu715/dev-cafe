@@ -25,6 +25,7 @@ passportConfig();
 
 app.use(cors({
     origin: '*',
+    credentials: true, //access - control - allow - credentials : true // 쿠키를 전달하고자 한다면 이 설정을
 }));
 // front에서 보낸 data를 req.body에 넣어주는 역할을 한다.
 // router보다 위에 위치 시켜야 먼저 설정을 한다.
