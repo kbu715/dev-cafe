@@ -64,15 +64,15 @@ export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
-// export const addPost = (data) => ({
-//   type: ADD_POST_REQUEST,
-//   data,
-// });
+export const addPost = (data) => ({
+  type: ADD_POST_REQUEST,
+  data,
+});
 
-// export const addComment = (data) => ({
-//   type: ADD_COMMENT_REQUEST,
-//   data,
-// });
+export const addComment = (data) => ({
+  type: ADD_COMMENT_REQUEST,
+  data,
+});
 
 // reducer : 이전 상태를 액션을 통해 다음 상태로 만들어내는 함수.
 // 단, 불변성은 지키면서
