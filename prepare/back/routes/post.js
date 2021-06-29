@@ -1,5 +1,5 @@
 const express = require('express');
-const { Post, Comment } = require('../models');
+const { Post, Comment, Image, User } = require('../models');
 const { isLoggedIn } = require('./middlewares');
 
 const router = express.Router();
@@ -11,7 +11,17 @@ router.post('/', isLoggedIn, async (req, res, next) => {
       content: req.body.content,
       UserId: req.user.id, // 로그인을 한번 하고 나서부터는 router에 접근할때 passport.deserializeUser() 가 자동실행
     })
-    res.status(201).json(post);
+    const fullPost = await Post.findOne({
+      where: { id: post.id },
+      include: [{
+        model: Image,
+      }, {
+        model: Comment,
+      }, {
+        model: User,
+      }]
+    })
+    res.status(201).json(fullPost);
   } catch (error) {
     console.error(error);
     next(error);
