@@ -1,10 +1,19 @@
 const express = require('express');
+const { Post } = require('../models');
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res, next) => {
   // POST /post
-  res.json({ id: 1, content: 'hello router' });
+  try {
+    const post = await Post.create({
+      content: req.body.content,
+    })
+    res.status(201).json(post);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
 });
 
 router.delete('/', (req, res) => {

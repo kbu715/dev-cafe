@@ -73,7 +73,7 @@ export const addComment = (data) => ({
   type: ADD_COMMENT_REQUEST,
   data,
 });
-
+/*
 const dummyPost = (data) => ({
   id: data.id,
   content: data.content,
@@ -84,6 +84,7 @@ const dummyPost = (data) => ({
   Images: [],
   Comments: [],
 });
+*/
 
 const dummyComment = (data) => ({
   id: shortId.generate(),
@@ -122,7 +123,7 @@ const reducer = (state = initialState, action) => {
       case ADD_POST_SUCCESS:
         draft.addPostLoading = false;
         draft.addPostDone = true;
-        draft.mainPosts.unshift(dummyPost(action.data));
+        draft.mainPosts.unshift(action.data);
         break;
       case ADD_POST_FAILURE:
         draft.addPostLoading = false;
