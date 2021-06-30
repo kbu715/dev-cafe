@@ -1,5 +1,6 @@
 const express = require('express');
 const postRouter = require('./routes/post');
+const postsRouter = require('./routes/posts');
 const userRouter = require('./routes/user');
 const db = require('./models');
 const cors = require('cors');
@@ -8,6 +9,7 @@ const passportConfig = require('./passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 
 dotenv.config();
 
@@ -23,6 +25,7 @@ db.sequelize
 
 passportConfig();
 
+app.use(morgan('dev'));
 app.use(cors({
     origin: 'http://localhost:3060', // origin: true, 해도 된다. 
     credentials: true, //access - control - allow - credentials : true // 쿠키를 전달하고자 한다면 이 설정을
@@ -43,10 +46,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-  res.send('Hello express');
+  res.send('HELLO EXPRESS');
 });
 
 app.use('/post', postRouter);
+app.use('/posts', postsRouter);
 app.use('/user', userRouter);
 
 //에러처리 미들웨어 직접 적어줄 수도 있다.
