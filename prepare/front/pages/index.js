@@ -17,7 +17,7 @@ const Home = () => {
       type: LOAD_MY_INFO_REQUEST,
     });
     dispatch({
-      type: LOAD_POSTS_REQUEST,
+      type: LOAD_POSTS_REQUEST, // 게시글 불러오기
     });
   }, []);
 
