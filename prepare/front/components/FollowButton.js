@@ -14,18 +14,12 @@ const FollowButton = ({ post }) => {
     if (isFollowing) {
       dispatch({
         type: UNFOLLOW_REQUEST,
-        data: {
-          id: post.User.id,
-          nickname: post.User.nickname,
-        },
+        data: post.User.id,
       });
     } else {
       dispatch({
         type: FOLLOW_REQUEST,
-        data: {
-          id: post.User.id,
-          nickname: post.User.nickname,
-        },
+        data: post.User.id,
       });
     }
   }, [isFollowing]);
