@@ -106,15 +106,16 @@ router.delete('/:postId', isLoggedIn, async (req, res, next) => { // DELETE /pos
   try {
     await Post.destroy({
       where: { 
-        PostId: parseInt(req.params.postId), 
+        id: req.params.postId, 
         UserId: req.user.id 
       }, // 다른사람이 남의 글을 삭제할 수도 있는 문제! -> 조건을 하나 더 준다 UserId: req.user.id -> 내가 쓴 글만 삭제 가능!
     })
-    res.json({ PostId: parseInt(req.params.postId) });
+    res.status(200).json({ PostId: parseInt(req.params.postId, 10) });
   } catch (error) {
     console.error(error);
     next(error);
   }
 });
+
 
 module.exports = router;

@@ -49,7 +49,7 @@ const PostCard = ({ post }) => {
       type: REMOVE_POST_REQUEST,
       data: post.id,
     });
-  });
+  }, []);
 
   const liked = post.Likers.find((liker) => liker.id === id);
 
