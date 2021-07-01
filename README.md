@@ -301,3 +301,52 @@ front에서 backend로 요청을 보낼때 log가 콘솔창에 뜬다.
 ### reducer에서 loading 부분은 `SWR` 을 통해 반복을 줄일 수 있다.
 
 araboza...
+
+
+### 고차함수를 써준다.
+
+```javascript
+  return (
+    <List
+      style={listStyle}
+      grid={{ gutter: 4, xs: 2, md: 3 }}
+      size="small"
+      header={<div>{header}</div>}
+      loadMore={
+        <div style={loadMoreStyle}>
+          <Button>더 보기</Button>
+        </div>
+      }
+      bordered
+      dataSource={data}
+      renderItem={(item) => (
+        <List.Item style={listItemStyle}>
+          <Card actions={[<MinusCircleOutlined key="minus" onClick={onCancel(item.id)} />]}>
+            <Card.Meta description={item.nickname} />
+          </Card>
+        </List.Item>
+      )}
+    />
+  );
+```
+📌📌📌
+renderItem와 같이 map 함수 같은 경우에 각각의 item들을 함수에 넘겨줄 때 `고차함수`를 써줘야한다!!!
+
+```javascript
+
+// 고차함수는 이렇게 생겼다.
+  const onCancel = (id) => () => {
+    if (header === '팔로잉') {
+      dispatch({
+        type: UNFOLLOW_REQUEST,
+        data: id,
+      });
+    } else {
+      dispatch({
+        type: REMOVE_FOLLOWER_REQUEST,
+        data: id,
+      });
+    }
+  };
+
+```

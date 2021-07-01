@@ -28,6 +28,9 @@ export const initialState = {
   loadFollowersLoading: false,
   loadFollowersDone: false,
   loadFollowersError: null,
+  removeFollowerLoading: false,
+  removeFollowerDone: false,
+  removeFollowerError: null,
   me: null,
   signUpData: {},
   loginData: {},
@@ -72,6 +75,10 @@ export const LOAD_FOLLOWERS_FAILURE = 'LOAD_FOLLOWERS_FAILURE';
 export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
 export const REMOVE_POST_OF_ME = 'REMOVE_POST_OF_ME';
 
+export const REMOVE_FOLLOWER_REQUEST = 'REMOVE_FOLLOWER_REQUEST';
+export const REMOVE_FOLLOWER_SUCCESS = 'REMOVE_FOLLOWER_SUCCESS';
+export const REMOVE_FOLLOWER_FAILURE = 'REMOVE_FOLLOWER_FAILURE';
+
 export const signUpAction = (data) => {
   return {
     type: SIGN_UP_REQUEST,
@@ -102,6 +109,20 @@ export const signUp = (data) => {
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case REMOVE_FOLLOWER_REQUEST:
+        draft.removeFollowerLoading = true;
+        draft.removeFollowerError = null;
+        draft.removeFollowerDone = false;
+        break;
+      case REMOVE_FOLLOWER_SUCCESS:
+        draft.removeFollowerLoading = false;
+        draft.me.Followers = draft.me.Followers.filter((follower) => follower.id !== action.data.UserId);
+        draft.removeFollowerDone = true;
+        break;
+      case REMOVE_FOLLOWER_FAILURE:
+        draft.removeFollowerLoading = false;
+        draft.removeFollowerError = action.error;
+        break;
       case LOAD_FOLLOWINGS_REQUEST:
         draft.loadFollowingsLoading = true;
         draft.loadFollowingsError = null;
@@ -165,7 +186,7 @@ const reducer = (state = initialState, action) => {
         break;
       case UNFOLLOW_SUCCESS:
         draft.unfollowLoading = false;
-        draft.me.Followings = draft.me.Followings.filter((v) => v.id !== action.data.UserId);
+        draft.me.Followings = draft.me.Followings.filter((following) => following.id !== action.data.UserId);
         draft.unfollowDone = true;
         break;
       case UNFOLLOW_FAILURE:
