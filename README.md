@@ -297,3 +297,7 @@ front에서 backend로 요청을 보낼때 log가 콘솔창에 뜬다.
 
 
 ### 작성하는 것과 삭제하는 것은 항상 보안을 철저히!
+
+### reducer에서 loading 부분은 `SWR` 을 통해 반복을 줄일 수 있다.
+
+araboza...
