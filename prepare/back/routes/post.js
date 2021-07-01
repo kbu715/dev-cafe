@@ -68,7 +68,7 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => { // :post
   }
 });
 
-router.patch('/:postId/like', async (req, res, next) => { // PATCH /post/1/like
+router.patch('/:postId/like', isLoggedIn, async (req, res, next) => { // PATCH /post/1/like
     try {
       const post = await Post.findOne({
         where: { id: req.params.postId }
@@ -85,7 +85,7 @@ router.patch('/:postId/like', async (req, res, next) => { // PATCH /post/1/like
     }
 })
 
-router.delete('/:postId/like', async (req, res, next) => { // DELETE /post/1/like
+router.delete('/:postId/like', isLoggedIn, async (req, res, next) => { // DELETE /post/1/like
   try {
     const post = await Post.findOne({
       where: { id: req.params.postId }
@@ -101,11 +101,14 @@ router.delete('/:postId/like', async (req, res, next) => { // DELETE /post/1/lik
   }
 })
 
-router.delete('/:postId', async (req, res, next) => { // DELETE /post/10
+router.delete('/:postId', isLoggedIn, async (req, res, next) => { // DELETE /post/10
   // DELETE /post
   try {
     await Post.destroy({
-      where: { PostId: parseInt(req.params.postId) },
+      where: { 
+        PostId: parseInt(req.params.postId), 
+        UserId: req.user.id 
+      }, // 다른사람이 남의 글을 삭제할 수도 있는 문제! -> 조건을 하나 더 준다 UserId: req.user.id -> 내가 쓴 글만 삭제 가능!
     })
     res.json({ PostId: parseInt(req.params.postId) });
   } catch (error) {
