@@ -24,34 +24,6 @@ export const initialState = {
   addCommentError: null,
 };
 
-// export const generateDummyPost = (number) =>
-//   Array(number)
-//     .fill()
-//     .map(() => ({
-//       id: shortId.generate(),
-//       User: {
-//         id: shortId.generate(),
-//         nickname: faker.name.findName(),
-//       },
-//       content: faker.lorem.paragraph(),
-//       Images: [
-//         {
-//           id: shortId.generate(),
-//           src: faker.image.image(),
-//         },
-//       ],
-//       Comments: [
-//         {
-//           id: shortId.generate(),
-//           User: {
-//             id: shortId.generate(),
-//             nickname: faker.name.findName(),
-//           },
-//           content: faker.lorem.sentence(),
-//         },
-//       ],
-//     }));
-
 export const LIKE_POST_REQUEST = 'LIKE_POST_REQUEST';
 export const LIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
 export const LIKE_POST_FAILURE = 'LIKE_POST_FAILURE';
@@ -160,7 +132,7 @@ const reducer = (state = initialState, action) => {
       case REMOVE_POST_SUCCESS:
         draft.removePostLoading = false;
         draft.removePostDone = true;
-        draft.mainPosts = draft.mainPosts.filter((v) => v.id !== action.data);
+        draft.mainPosts = draft.mainPosts.filter((v) => v.id !== action.data.PostId);
         break;
       case REMOVE_POST_FAILURE:
         draft.removePostLoading = false;
