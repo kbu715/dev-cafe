@@ -1,15 +1,21 @@
 const express = require('express');
+const { Op } = require('sequelize');
 const { Post, User, Image, Comment } = require('../models');
 const router = express.Router();
 
 router.get('/', async (req, res, next) => { // GET /posts
     try {
+        const where = {};
+        if(parseInt(req.query.lastId, 10)) { //초기 로딩이 아닐때
+            where.id = { [Op.lt]: parseInt(req.query.lastId, 10) } // lastId 보다 작은 // lt: less than // Op : Operator 연산자, 시퀄라이즈 제공.
+        }
+
         const posts = await Post.findAll({
             // limit: 10, // 10개만 가져와라
             // offset: 0, // 1~10 가져온다.
             // order: [['createdAt', 'DESC]], // 최신글 부터 내림차순
             /*********************/
-
+            where,
             limit: 10,
             order: [['createdAt', 'DESC'], [Comment, 'createdAt', 'DESC']], // 2차원 배열 // 앞에 배열은 게시글 정렬 // Comment만 따로 정렬
             include: [{
