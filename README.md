@@ -350,3 +350,12 @@ renderItem와 같이 map 함수 같은 경우에 각각의 item들을 함수에 
   };
 
 ```
+
+### 자기 게시글을 리트윗 하는 것 || 자기 게시글을 남이 리트윗 한거를 내가 다시 리트윗하는 것
+
+이걸 막자
+
+```javascript
+
+  if (req.user.id === post.UserId || post.Retweet?.UserId === req.user.id)
+```

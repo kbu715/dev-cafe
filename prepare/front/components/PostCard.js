@@ -10,7 +10,7 @@ import PostImages from './PostImages';
 import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
 import FollowButton from './FollowButton';
-import { LIKE_POST_REQUEST, REMOVE_POST_REQUEST, UNLIKE_POST_REQUEST } from '../reducers/post';
+import { LIKE_POST_REQUEST, REMOVE_POST_REQUEST, RETWEET_REQUEST, UNLIKE_POST_REQUEST } from '../reducers/post';
 
 const CardWrapper = styled.div`
   margin-bottom: 20px;
@@ -63,6 +63,10 @@ const PostCard = ({ post }) => {
     if (!id) {
       alert('로그인이 필요합니다.');
     }
+    dispatch({
+      type: RETWEET_REQUEST,
+      data: post.id,
+    });
   }, [id]);
 
   const liked = post.Likers.find((liker) => liker.id === id);
@@ -95,9 +99,20 @@ const PostCard = ({ post }) => {
             <EllipsisOutlined />
           </Popover>,
         ]}
+        title={post.RetweetId ? `${post.User.nickname}님이 리트윗하셨습니다.` : null}
         extra={id && <FollowButton post={post} />}
       >
-        <Card.Meta avatar={<Avatar>{post.User.nickname[0]}</Avatar>} title={post.User.nickname} description={<PostCardContent postData={post.content} />} />
+        {post.RetweetId && post.Retweet ? (
+          <Card cover={post.Retweet.Images[0] && <PostImages images={post.Retweet.Images} />}>
+            <Card.Meta
+              avatar={<Avatar>{post.Retweet.User.nickname[0]}</Avatar>}
+              title={post.Retweet.User.nickname}
+              description={<PostCardContent postData={post.Retweet.content} />}
+            />
+          </Card>
+        ) : (
+          <Card.Meta avatar={<Avatar>{post.User.nickname[0]}</Avatar>} title={post.User.nickname} description={<PostCardContent postData={post.content} />} />
+        )}
       </Card>
       {commentFormOpened && (
         <>
@@ -137,6 +152,8 @@ PostCard.propTypes = {
     Comments: PropTypes.arrayOf(PropTypes.any),
     Images: PropTypes.arrayOf(PropTypes.any),
     Likers: PropTypes.arrayOf(PropTypes.object),
+    RetweetId: PropTypes.number,
+    Retweet: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
 };
 
