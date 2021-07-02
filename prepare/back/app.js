@@ -10,6 +10,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const path = require('path');
 
 dotenv.config();
 
@@ -30,6 +31,9 @@ app.use(cors({
     origin: 'http://localhost:3060', // origin: true, 해도 된다. 
     credentials: true, //access - control - allow - credentials : true // 쿠키를 전달하고자 한다면 이 설정을
 }));
+
+app.use('/', express.static(path.join(__dirname, 'uploads')));
+
 // front에서 보낸 data를 req.body에 넣어주는 역할을 한다.
 // router보다 위에 위치 시켜야 먼저 설정을 한다.
 app.use(express.json()); // front에서 json 형식으로 data를 보내면 req.body에 json 형태로 넣어준다.

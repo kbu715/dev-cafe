@@ -36,13 +36,22 @@ router.post('/images', isLoggedIn, upload.array('image'), async (req, res, next)
   res.json(req.files.map(file => file.filename));
 })
 
-router.post('/', isLoggedIn, async (req, res, next) => {
+router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {
   // POST /post
   try {
     const post = await Post.create({
       content: req.body.content,
       UserId: req.user.id, // 로그인을 한번 하고 나서부터는 router에 접근할때 passport.deserializeUser() 가 자동실행
     })
+    if (req.body.image) {
+      if (Array.isArray(req.body.image)) { // 이미지를 여러 개 올리면 image: [제로초.png, 부기초.png]
+        const images = await Promise.all(req.body.image.map((image) => Image.create({ src: image })));
+        await post.addImages(images);
+      } else { // 이미지를 하나만 올리면 image: 제로초.png
+        const image = await Image.create({ src: req.body.image });
+        await post.addImages(image);
+      }
+    }
     const fullPost = await Post.findOne({
       where: { id: post.id },
       include: [{
