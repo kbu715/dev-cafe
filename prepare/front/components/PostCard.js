@@ -24,32 +24,46 @@ const PostCard = ({ post }) => {
 
   const dispatch = useDispatch();
 
-  // const [liked, setLiked] = useState(false);
-
   const onLike = useCallback(() => {
+    if (!id) {
+      alert('로그인이 필요합니다.');
+    }
     dispatch({
       type: LIKE_POST_REQUEST,
       data: post.id,
     });
-  }, []);
+  }, [id]);
 
   const onUnlike = useCallback(() => {
+    if (!id) {
+      alert('로그인이 필요합니다.');
+    }
     dispatch({
       type: UNLIKE_POST_REQUEST,
       data: post.id,
     });
-  }, []);
+  }, [id]);
 
   const onToggleComment = useCallback(() => {
     setCommentFormOpened((prev) => !prev);
   }, []);
 
   const onRemovePost = useCallback(() => {
+    if (!id) {
+      alert('로그인이 필요합니다.');
+    }
     dispatch({
       type: REMOVE_POST_REQUEST,
       data: post.id,
     });
-  }, []);
+  }, [id]);
+
+  const onRetweet = useCallback(() => {
+    // 프론트에서도 막아주는게 중요하다.
+    if (!id) {
+      alert('로그인이 필요합니다.');
+    }
+  }, [id]);
 
   const liked = post.Likers.find((liker) => liker.id === id);
 
@@ -58,7 +72,7 @@ const PostCard = ({ post }) => {
       <Card
         cover={post.Images[0] && <PostImages images={post.Images} />}
         actions={[
-          <RetweetOutlined key="retweet" />,
+          <RetweetOutlined key="retweet" onClick={onRetweet} />,
           liked ? <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onUnlike} /> : <HeartOutlined key="heart" onClick={onLike} />,
           <MessageOutlined key="message" onClick={onToggleComment} />,
           <Popover
