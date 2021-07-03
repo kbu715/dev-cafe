@@ -359,3 +359,8 @@ renderItem와 같이 map 함수 같은 경우에 각각의 item들을 함수에 
 
   if (req.user.id === post.UserId || post.Retweet?.UserId === req.user.id)
 ```
+
+### TO DO LIST
+
+1. 서버사이드 렌더링 적용하기
+2. 배포
