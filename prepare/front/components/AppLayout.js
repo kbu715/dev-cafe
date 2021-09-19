@@ -30,13 +30,13 @@ import { GNB_HEIGHT } from '../utils/constant';
 //   vertical-align: middle;
 // `;
 
+const MainContainer = styled.main`
+  margin-top: ${GNB_HEIGHT}px;
+`;
+
 const AppLayout = ({ children }) => {
   // if isLoggedIn changes, AppLayout Component will be re-rendered on its own.
   const { me } = useSelector((state) => state.user);
-
-  const MainContainer = styled.main`
-    margin-top: ${GNB_HEIGHT}px;
-  `;
 
   return (
     <>
