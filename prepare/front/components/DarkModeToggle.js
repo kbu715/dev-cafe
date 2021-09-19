@@ -29,8 +29,8 @@ const DarkModeToggle = () => {
             fontSize: 16,
           }}
         >
-          <span role="img" aria-label="lightMode">
-            🟡
+          <span role="img" aria-label="darkMode">
+            ⚫
           </span>
         </div>
       }
@@ -44,8 +44,8 @@ const DarkModeToggle = () => {
             fontSize: 16,
           }}
         >
-          <span role="img" aria-label="darkMode">
-            ⚫
+          <span role="img" aria-label="lightMode">
+            🟡
           </span>
         </div>
       }
