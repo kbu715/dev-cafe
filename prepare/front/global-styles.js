@@ -7,7 +7,10 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
     body {
-        font-family: 'NanumSquare', sans-serif;
+        font-family: 'Noto Sans', sans-serif;
+        background: ${({ theme }) => theme.body};
+        color: ${({ theme }) => theme.text};
+        transition: all 0.5s ease-in-out;
     }
     button { 
         cursor: pointer;
