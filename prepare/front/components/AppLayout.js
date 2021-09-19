@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Menu, Input, Row, Col } from 'antd';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useSelector } from 'react-redux';
+import { Menu, Input } from 'antd';
+import { Row, Column, Container } from './Grid';
+import DarkModeToggle from './DarkModeToggle';
 
-import UserProfile from './UserProfile';
 import LoginForm from './LoginForm';
+import UserProfile from './UserProfile';
 
 const Global = createGlobalStyle`
   .ant-row {
@@ -32,8 +34,9 @@ const AppLayout = ({ children }) => {
   const { me } = useSelector((state) => state.user);
 
   return (
-    <div>
+    <>
       <Global />
+
       <Menu mode="horizontal">
         <Menu.Item key="home">
           <Link href="/">
@@ -53,21 +56,22 @@ const AppLayout = ({ children }) => {
         <Menu.Item key="search">
           <SearchInput enterButton style={{ verticalAlign: 'middle' }} />
         </Menu.Item>
+        <Menu.Item key="toggle">
+          <DarkModeToggle />
+        </Menu.Item>
       </Menu>
-      <Row gutter={16}>
-        <Col xs={24} md={6}>
-          {me ? <UserProfile /> : <LoginForm />}
-        </Col>
-        <Col xs={24} md={12}>
-          {children}
-        </Col>
-        <Col xs={24} md={6}>
-          <a href="https://github.com/kbu715" target="_blank" rel="noreferrer noopener">
-            Made By Paul
-          </a>
-        </Col>
-      </Row>
-    </div>
+
+      <Container>
+        <Row>
+          <Column sm={4} md={3}>
+            {me ? <UserProfile /> : <LoginForm />}
+          </Column>
+          <Column sm={4} md={6}>
+            {children}
+          </Column>
+        </Row>
+      </Container>
+    </>
   );
 };
 
