@@ -31,7 +31,7 @@ import { GNB_HEIGHT } from '../utils/constant';
 // `;
 
 const MainContainer = styled.main`
-  margin-top: ${GNB_HEIGHT}px;
+  margin-top: ${GNB_HEIGHT + 20}px;
 `;
 
 const AppLayout = ({ children }) => {
