@@ -66,7 +66,7 @@ const PostForm = () => {
         <input type="file" name="image" multiple hidden ref={imageInput} onChange={onChangeImages} />
         <Button onClick={onClickImageUpload}>이미지 업로드</Button>
         <Button type="primary" style={{ float: 'right' }} htmlType="submit" loading={addPostLoading}>
-          짹짹
+          등록
         </Button>
       </div>
       <div>

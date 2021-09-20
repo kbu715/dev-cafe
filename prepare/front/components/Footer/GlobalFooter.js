@@ -21,6 +21,10 @@ const FooterLogoWrapper = styled.div`
   font-family: 'Comfortaa', cursive;
   margin-right: 5px;
   color: ${(props) => (props.theme === lightTheme ? '#a0a0a0' : '#7b7b7b')};
+
+  &:hover {
+    color: ${(props) => (props.theme === lightTheme ? '#363537' : '#fafafa')};
+  }
 `;
 
 const FooterIconWrapper = styled.div`

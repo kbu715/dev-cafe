@@ -44,7 +44,7 @@ const PostImages = ({ images }) => {
   }
   return (
     <>
-      <div>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <img role="presentation" src={`http://localhost:3065/${images[0].src}`} alt={images[0].src} width="50%" onClick={onZoom} />
         <div role="presentation" style={{ display: 'inline-block', width: '50%', textAlign: 'center', verticalAlign: 'middle' }} onClick={onZoom}>
           <PlusOutlined />

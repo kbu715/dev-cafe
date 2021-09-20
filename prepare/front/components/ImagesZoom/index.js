@@ -14,20 +14,18 @@ const ImagesZoom = ({ images, onClose }) => {
         <CloseBtn onClick={onClose} />
       </Header>
       <SlickWrapper>
-        <div>
-          <Slick initialSlide={0} beforeChange={(slide, newSlide) => setCurrentSlide(newSlide)} infinite arrows={false} slidesToShow={1} slidesToScroll={1}>
-            {images.map((v) => (
-              <ImgWrapper key={v.src}>
-                <img src={`http://localhost:3065/${v.src}`} alt={v.src} />
-              </ImgWrapper>
-            ))}
-          </Slick>
-          <Indicator>
-            <div>
-              {currentSlide + 1} /{images.length}
-            </div>
-          </Indicator>
-        </div>
+        <Slick initialSlide={0} beforeChange={(slide, newSlide) => setCurrentSlide(newSlide)} infinite arrows={false} slidesToShow={1} slidesToScroll={1}>
+          {images.map((v) => (
+            <ImgWrapper key={v.src}>
+              <img src={`http://localhost:3065/${v.src}`} alt={v.src} />
+            </ImgWrapper>
+          ))}
+        </Slick>
+        {/* <Indicator>
+          <div>
+            {currentSlide + 1} /{images.length}
+          </div>
+        </Indicator> */}
       </SlickWrapper>
     </Overlay>
   );

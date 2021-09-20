@@ -36,7 +36,8 @@ export const Header = styled.header`
 
 export const SlickWrapper = styled.div`
   height: calc(100% - 44px);
-  background: rgba(9, 9, 9, 0.85);
+  background: rgba(0, 0, 0, 0.5);
+  position: relative;
 
   & > div {
     height: 100%;
@@ -52,28 +53,38 @@ export const CloseBtn = styled(CloseOutlined)`
   cursor: pointer;
 `;
 
-export const Indicator = styled.div`
-  text-align: center;
-
-  & > div {
-    width: 75px;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 15px;
-    background: #313131;
-    display: inline-block;
-    text-align: center;
-    color: white;
-    font-size: 15px;
-  }
-`;
+// export const Indicator = styled.div`
+//   text-align: center;
+//   & > div {
+//     width: 75px;
+//     height: 30px;
+//     line-height: 30px;
+//     border-radius: 15px;
+//     background: #313131;
+//     display: inline-block;
+//     text-align: center;
+//     color: white;
+//     font-size: 15px;
+//   }
+// `;
 
 export const ImgWrapper = styled.div`
   padding: 32px;
   text-align: center;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
 
   & img {
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     margin: 0 auto;
-    max-height: 750px;
+    width: 80vw;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
   }
 `;
