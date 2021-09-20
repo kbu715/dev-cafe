@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ThemeContext } from '../../pages/_app';
 import DarkModeToggle from '../DarkModeToggle';
 import { GNB_HEIGHT, GNB_Z_INDEX } from '../../utils/constant';
-import User from '../User';
+import UserMenu from '../UserMenu';
 
 const NavContainer = styled.nav`
   width: 100vw;
@@ -45,7 +45,7 @@ const Navigation = () => {
       <SearchBarContainer />
       <NavMenuContainer>
         <DarkModeToggle />
-        <User />
+        <UserMenu />
       </NavMenuContainer>
     </NavContainer>
   );

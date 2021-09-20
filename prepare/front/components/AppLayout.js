@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import Link from 'next/link';
 // import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 // import { Menu, Input } from 'antd';
-import styled from 'styled-components';
 import { Row, Column, Container } from './Grid';
 import LoginForm from './LoginForm';
 import UserProfile from './UserProfile';
 import Navigation from './Nav/GlobalNavigation';
 import { GNB_HEIGHT } from '../utils/constant';
+import GlobalFooter from './Footer/GlobalFooter';
 
 // const Global = createGlobalStyle`
 //   .ant-row {
@@ -41,33 +42,30 @@ const AppLayout = ({ children }) => {
   return (
     <>
       {/* <Global /> */}
-
-      {/* <Menu mode="horizontal">
-        <Menu.Item key="home">
-          <Link href="/">
-            <a>홈</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="profile">
-          <Link href="/profile">
-            <a>프로필</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="signup">
-          <Link href="/signup">
-            <a>회원가입</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="search">
-          <SearchInput enterButton style={{ verticalAlign: 'middle' }} />
-        </Menu.Item>
-        <Menu.Item key="toggle">
-          <DarkModeToggle />
-        </Menu.Item>
-      </Menu> */}
       <Navigation />
 
       <MainContainer>
+        {/* <Menu mode="horizontal">
+          <Menu.Item key="home">
+            <Link href="/">
+              <a>홈</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="profile">
+            <Link href="/profile">
+              <a>프로필</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="signup">
+            <Link href="/signup">
+              <a>회원가입</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="search">
+            <SearchInput enterButton style={{ verticalAlign: 'middle' }} />
+          </Menu.Item>
+        </Menu> */}
+
         <Container>
           <Row>
             <Column sm={4} md={3}>
@@ -79,6 +77,7 @@ const AppLayout = ({ children }) => {
           </Row>
         </Container>
       </MainContainer>
+      <GlobalFooter />
     </>
   );
 };

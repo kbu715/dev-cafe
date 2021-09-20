@@ -33,7 +33,7 @@ const UserMenu = () => {
 
   return (
     <UserMenuWrapper onClick={onUserClick}>
-      <FaUserCircle size={33} />
+      <FaUserCircle size={28} />
       <UserMenuDropdown theme={theme} userMenuToggle={userMenuToggle} />
     </UserMenuWrapper>
   );
