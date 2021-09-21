@@ -1,13 +1,15 @@
-import React, { useContext, useRef } from 'react';
-import Link from 'next/link';
+import React, { useCallback, useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { FaUserCircle } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { ThemeContext } from '../pages/_app';
 import { useDetectClickOutside } from '../hooks/useDetectClickOutside';
+import { logoutRequestAction } from '../reducers/user';
 
 const UserMenuWrapper = styled.div`
   position: relative;
-  margin-left: 20px;
+  margin-left: 10px;
   & svg {
     cursor: pointer;
   }
@@ -35,51 +37,72 @@ const UserMenuDropdown = styled.div`
 
   & ul li {
     height: 42px;
-    padding: 0 18px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     cursor: pointer;
     font-size: 13px;
     color: ${(props) => props.theme.text};
-
     &:hover {
       background: rgba(0, 0, 0, 0.05);
     }
 
-    & a {
+    button {
+      display: block;
+      padding: 0 18px;
       width: 100%;
+      height: 100%;
     }
   }
 `;
 
-const UserMenu = () => {
+const UserMenu = ({ toggleSignIn }) => {
   const { theme } = useContext(ThemeContext);
+  const { me } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectClickOutside(dropdownRef, false);
 
   const onClick = () => setIsActive((prev) => !prev);
 
+  const onLogOut = useCallback(() => {
+    dispatch(logoutRequestAction);
+  }, []);
+
   return (
     <UserMenuWrapper onClick={onClick} ref={dropdownRef}>
-      <FaUserCircle size={28} />
+      <FaUserCircle size={24} />
       <UserMenuDropdown theme={theme} isActive={isActive}>
         <ul>
-          <li>
-            <Link href="/">
-              <a>로그인</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/signup">
-              <a>회원가입</a>
-            </Link>
-          </li>
+          {!me ? (
+            <>
+              <li>
+                <button type="button" onClick={toggleSignIn}>
+                  로그인
+                </button>
+              </li>
+              <li>
+                <button type="button" onClick={toggleSignIn}>
+                  회원가입
+                </button>
+              </li>
+            </>
+          ) : (
+            <li>
+              <button type="button" onClick={onLogOut}>
+                로그아웃
+              </button>
+            </li>
+          )}
         </ul>
       </UserMenuDropdown>
     </UserMenuWrapper>
   );
+};
+
+UserMenu.propTypes = {
+  toggleSignIn: PropTypes.func.isRequired,
 };
 
 export default UserMenu;

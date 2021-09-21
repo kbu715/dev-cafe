@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
@@ -7,6 +7,7 @@ import DarkModeToggle from '../DarkModeToggle';
 import { GNB_HEIGHT, GNB_Z_INDEX } from '../../utils/constant';
 import UserMenu from '../UserMenu';
 import { Container, Row, Column } from '../Grid';
+import SignIn from '../Auth/SignIn';
 
 const NavContainer = styled.nav`
   width: 100%;
@@ -67,27 +68,33 @@ const NavMenuContainer = styled.div`
 
 const Navigation = ({ show }) => {
   const { theme } = useContext(ThemeContext);
+  const [signIn, setSignIn] = useState(false);
+
+  const toggleSignIn = () => setSignIn((prev) => !prev);
   return (
-    <NavContainer theme={theme} show={show}>
-      <Container>
-        <Row>
-          <Column sm={4} md={12}>
-            <ItemsWrapper>
-              <LogoContainer theme={theme} show={show}>
-                <Link href="/">
-                  <a>DEV-CAFE</a>
-                </Link>
-              </LogoContainer>
-              <SearchBarContainer />
-              <NavMenuContainer>
-                <DarkModeToggle />
-                <UserMenu />
-              </NavMenuContainer>
-            </ItemsWrapper>
-          </Column>
-        </Row>
-      </Container>
-    </NavContainer>
+    <>
+      <NavContainer theme={theme} show={show}>
+        <Container>
+          <Row>
+            <Column sm={4} md={12}>
+              <ItemsWrapper>
+                <LogoContainer theme={theme} show={show}>
+                  <Link href="/">
+                    <a>DEV-CAFE</a>
+                  </Link>
+                </LogoContainer>
+                <SearchBarContainer />
+                <NavMenuContainer>
+                  <DarkModeToggle />
+                  <UserMenu toggleSignIn={toggleSignIn} />
+                </NavMenuContainer>
+              </ItemsWrapper>
+            </Column>
+          </Row>
+        </Container>
+      </NavContainer>
+      {signIn && <SignIn toggleSignIn={toggleSignIn} />}
+    </>
   );
 };
 
