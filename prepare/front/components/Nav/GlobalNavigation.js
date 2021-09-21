@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import { ThemeContext } from '../../pages/_app';
 import DarkModeToggle from '../DarkModeToggle';
 import { GNB_HEIGHT, GNB_Z_INDEX } from '../../utils/constant';
 import UserMenu from '../UserMenu';
+import { Container, Row, Column } from '../Grid';
 
 const NavContainer = styled.nav`
   width: 100%;
@@ -22,14 +24,23 @@ const NavContainer = styled.nav`
       color: ${props.theme.text};
       box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
     `};
+`;
+
+const ItemsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: ${GNB_HEIGHT}px;
 `;
 
 const LogoContainer = styled.div`
   width: 200px;
   height: 100%;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
 `;
 
 const SearchBarContainer = styled.div`
@@ -41,7 +52,7 @@ const NavMenuContainer = styled.div`
   width: 250px;
   height: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -49,12 +60,24 @@ const Navigation = ({ show }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <NavContainer theme={theme} show={show}>
-      <LogoContainer />
-      <SearchBarContainer />
-      <NavMenuContainer>
-        <DarkModeToggle />
-        <UserMenu />
-      </NavMenuContainer>
+      <Container>
+        <Row>
+          <Column sm={4} md={12}>
+            <ItemsWrapper>
+              <LogoContainer theme={theme}>
+                <Link href="/">
+                  <a>DEV-CAFE</a>
+                </Link>
+              </LogoContainer>
+              <SearchBarContainer />
+              <NavMenuContainer>
+                <DarkModeToggle />
+                <UserMenu />
+              </NavMenuContainer>
+            </ItemsWrapper>
+          </Column>
+        </Row>
+      </Container>
     </NavContainer>
   );
 };
