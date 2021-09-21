@@ -56,7 +56,7 @@ const UserMenuDropdown = styled.div`
   }
 `;
 
-const UserMenu = ({ toggleSignIn }) => {
+const UserMenu = ({ toggleSignIn, toggleSignUp }) => {
   const { theme } = useContext(ThemeContext);
   const { me } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -83,7 +83,7 @@ const UserMenu = ({ toggleSignIn }) => {
                 </button>
               </li>
               <li>
-                <button type="button" onClick={toggleSignIn}>
+                <button type="button" onClick={toggleSignUp}>
                   회원가입
                 </button>
               </li>
@@ -103,6 +103,7 @@ const UserMenu = ({ toggleSignIn }) => {
 
 UserMenu.propTypes = {
   toggleSignIn: PropTypes.func.isRequired,
+  toggleSignUp: PropTypes.func.isRequired,
 };
 
 export default UserMenu;

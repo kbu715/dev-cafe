@@ -8,6 +8,7 @@ import { GNB_HEIGHT, GNB_Z_INDEX } from '../../utils/constant';
 import UserMenu from '../UserMenu';
 import { Container, Row, Column } from '../Grid';
 import SignIn from '../Auth/SignIn';
+import SignUp from '../Auth/SignUp';
 
 const NavContainer = styled.nav`
   width: 100%;
@@ -69,8 +70,10 @@ const NavMenuContainer = styled.div`
 const Navigation = ({ show }) => {
   const { theme } = useContext(ThemeContext);
   const [signIn, setSignIn] = useState(false);
+  const [signUp, setSignUp] = useState(false);
 
   const toggleSignIn = () => setSignIn((prev) => !prev);
+  const toggleSignUp = () => setSignUp((prev) => !prev);
   return (
     <>
       <NavContainer theme={theme} show={show}>
@@ -86,7 +89,7 @@ const Navigation = ({ show }) => {
                 <SearchBarContainer />
                 <NavMenuContainer>
                   <DarkModeToggle />
-                  <UserMenu toggleSignIn={toggleSignIn} />
+                  <UserMenu toggleSignIn={toggleSignIn} toggleSignUp={toggleSignUp} />
                 </NavMenuContainer>
               </ItemsWrapper>
             </Column>
@@ -94,6 +97,7 @@ const Navigation = ({ show }) => {
         </Container>
       </NavContainer>
       {signIn && <SignIn toggleSignIn={toggleSignIn} />}
+      {signUp && <SignUp toggleSignUp={toggleSignUp} />}
     </>
   );
 };
