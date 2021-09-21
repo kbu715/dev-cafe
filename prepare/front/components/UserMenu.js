@@ -1,4 +1,5 @@
 import React, { useContext, useRef } from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { FaUserCircle } from 'react-icons/fa';
 import { ThemeContext } from '../pages/_app';
@@ -37,7 +38,20 @@ const UserMenu = () => {
   return (
     <UserMenuWrapper onClick={onClick} ref={dropdownRef}>
       <FaUserCircle size={28} />
-      <UserMenuDropdown theme={theme} isActive={isActive} />
+      <UserMenuDropdown theme={theme} isActive={isActive}>
+        <ul>
+          <li>
+            <Link href="/">
+              <a>로그인</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/signup">
+              <a>회원가입</a>
+            </Link>
+          </li>
+        </ul>
+      </UserMenuDropdown>
     </UserMenuWrapper>
   );
 };
