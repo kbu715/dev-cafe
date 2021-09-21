@@ -34,22 +34,31 @@ const ItemsWrapper = styled.div`
 `;
 
 const LogoContainer = styled.div`
-  width: 200px;
+  width: 35%;
   height: 100%;
-  font-size: 28px;
+  font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 600;
+  font-family: 'Comfortaa', cursive;
+  & a {
+    color: white;
+    ${(props) =>
+      props.show &&
+      css`
+        color: ${props.theme.text};
+      `};
+  }
 `;
 
 const SearchBarContainer = styled.div`
-  width: 400px;
+  width: 35%;
   height: 100%;
 `;
 
 const NavMenuContainer = styled.div`
-  width: 250px;
+  width: 30%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -64,7 +73,7 @@ const Navigation = ({ show }) => {
         <Row>
           <Column sm={4} md={12}>
             <ItemsWrapper>
-              <LogoContainer theme={theme}>
+              <LogoContainer theme={theme} show={show}>
                 <Link href="/">
                   <a>DEV-CAFE</a>
                 </Link>
