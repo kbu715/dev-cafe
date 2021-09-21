@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 // import Link from 'next/link';
 // import styled, { createGlobalStyle } from 'styled-components';
@@ -11,6 +11,7 @@ import UserProfile from './UserProfile';
 import Navigation from './Nav/GlobalNavigation';
 import { GNB_HEIGHT } from '../utils/constant';
 import GlobalFooter from './Footer/GlobalFooter';
+import HomeBackground from './Home/Background';
 
 // const Global = createGlobalStyle`
 //   .ant-row {
@@ -38,11 +39,33 @@ const MainContainer = styled.main`
 const AppLayout = ({ children }) => {
   // if isLoggedIn changes, AppLayout Component will be re-rendered on its own.
   const { me } = useSelector((state) => state.user);
+  const [showNav, setShowNav] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY >= GNB_HEIGHT) {
+      setShowNav(true);
+    } else {
+      setShowNav(false);
+    }
+  };
+
+  useLayoutEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  });
 
   return (
     <>
       {/* <Global /> */}
-      <Navigation />
+      <Navigation show={showNav} />
+      <Container>
+        <Row>
+          <Column sm={4} md={12}>
+            <HomeBackground />
+          </Column>
+        </Row>
+      </Container>
 
       <MainContainer>
         {/* <Menu mode="horizontal">
