@@ -94,7 +94,7 @@ const InputWrap = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.2);
     &:focus {
       outline: none;
-      border: 1.5px solid #8e44ad;
+      border: 2px solid #8e44ad;
     }
   }
 `;
