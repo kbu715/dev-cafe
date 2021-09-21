@@ -1,44 +1,17 @@
 import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import Link from 'next/link';
-// import styled, { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-// import { Menu, Input } from 'antd';
 import { Row, Column, Container } from './Grid';
-import LoginForm from './LoginForm';
-import UserProfile from './UserProfile';
 import Navigation from './Nav/GlobalNavigation';
 import { GNB_HEIGHT } from '../utils/constant';
 import GlobalFooter from './Footer/GlobalFooter';
 import HomeBackground from './Home/Background';
 
-// const Global = createGlobalStyle`
-//   .ant-row {
-//     margin-right: 0 !important;
-//     margin-left: 0 !important;
-//   }
-
-//   .ant-col:first-child {
-//     padding-left: 0 !important;
-//   }
-
-//   .ant-col:last-child {
-//     padding-right: 0 !important;
-//   }
-// `;
-
-// const SearchInput = styled(Input.Search)`
-//   vertical-align: middle;
-// `;
-
 const MainContainer = styled.main`
-  margin-top: ${GNB_HEIGHT + 20}px;
+  margin: ${GNB_HEIGHT + 20}px 0;
 `;
 
 const AppLayout = ({ children }) => {
-  // if isLoggedIn changes, AppLayout Component will be re-rendered on its own.
-  const { me } = useSelector((state) => state.user);
   const [showNav, setShowNav] = useState(false);
 
   const handleScroll = () => {
@@ -57,7 +30,6 @@ const AppLayout = ({ children }) => {
 
   return (
     <>
-      {/* <Global /> */}
       <Navigation show={showNav} />
       <Container>
         <Row>
@@ -66,34 +38,10 @@ const AppLayout = ({ children }) => {
           </Column>
         </Row>
       </Container>
-
       <MainContainer>
-        {/* <Menu mode="horizontal">
-          <Menu.Item key="home">
-            <Link href="/">
-              <a>홈</a>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="profile">
-            <Link href="/profile">
-              <a>프로필</a>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="signup">
-            <Link href="/signup">
-              <a>회원가입</a>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="search">
-            <SearchInput enterButton style={{ verticalAlign: 'middle' }} />
-          </Menu.Item>
-        </Menu> */}
-
         <Container>
           <Row>
-            <Column sm={4} md={3}>
-              {me ? <UserProfile /> : <LoginForm />}
-            </Column>
+            <Column sm={4} md={3} />
             <Column sm={4} md={6}>
               {children}
             </Column>

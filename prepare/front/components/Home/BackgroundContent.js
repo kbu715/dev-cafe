@@ -28,7 +28,7 @@ const Content = styled.div`
   align-items: center;
   @media screen and (max-width: 450px) {
     width: max-content;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 `;
 

@@ -17,7 +17,7 @@ const DarkModeToggle = () => {
       checked={checked}
       onChange={toggleTheme}
       onColor="#464646"
-      offColor="#2388de"
+      offColor="#464646"
       handleDiameter={20}
       width={46}
       height={22}
