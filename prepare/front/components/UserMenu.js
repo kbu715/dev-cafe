@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { FaUserCircle } from 'react-icons/fa';
 import { ThemeContext } from '../pages/_app';
+import { useDetectClickOutside } from '../hooks/useDetectClickOutside';
 
 const UserMenuWrapper = styled.div`
   position: relative;
@@ -19,22 +20,24 @@ const UserMenuDropdown = styled.div`
   background: ${(props) => props.theme.itemBackground};
   border-radius: 10px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
-  visibility: ${({ userMenuToggle }) => (userMenuToggle ? 'visible' : 'hidden')};
-  transform: ${({ userMenuToggle }) => (userMenuToggle ? 'translate3d(0, 0, 0)' : 'translate3d(0, -10px, 0)')};
-  opacity: ${({ userMenuToggle }) => (userMenuToggle ? 1 : 0)};
+  visibility: ${({ isActive }) => (isActive ? 'visible' : 'hidden')};
+  transform: ${({ isActive }) => (isActive ? 'translate3d(0, 0, 0)' : 'translate3d(0, -10px, 0)')};
+  opacity: ${({ isActive }) => (isActive ? 1 : 0)};
   transition: all 200ms ease-in-out;
 `;
 
 const UserMenu = () => {
-  const [userMenuToggle, setUserMenuToggle] = useState(false);
   const { theme } = useContext(ThemeContext);
 
-  const onUserClick = () => setUserMenuToggle((prev) => !prev);
+  const dropdownRef = useRef(null);
+  const [isActive, setIsActive] = useDetectClickOutside(dropdownRef, false);
+
+  const onClick = () => setIsActive((prev) => !prev);
 
   return (
-    <UserMenuWrapper onClick={onUserClick}>
+    <UserMenuWrapper onClick={onClick} ref={dropdownRef}>
       <FaUserCircle size={28} />
-      <UserMenuDropdown theme={theme} userMenuToggle={userMenuToggle} />
+      <UserMenuDropdown theme={theme} isActive={isActive} />
     </UserMenuWrapper>
   );
 };
