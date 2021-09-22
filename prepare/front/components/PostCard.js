@@ -1,19 +1,48 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { Card, Button, Avatar, Popover, List, Comment } from 'antd';
 import PropTypes from 'prop-types';
 import { RetweetOutlined, HeartTwoTone, HeartOutlined, MessageOutlined, EllipsisOutlined } from '@ant-design/icons';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
-import FollowButton from './FollowButton';
+// import FollowButton from './FollowButton';
 import { LIKE_POST_REQUEST, REMOVE_POST_REQUEST, RETWEET_REQUEST, UNLIKE_POST_REQUEST } from '../reducers/post';
+import { ThemeContext } from '../pages/_app';
+
+const Global = createGlobalStyle`
+    .ant-list {
+      color: ${(props) => props.theme.text};
+      background: ${(props) => props.theme.itemBackground};
+    }
+    .ant-comment-content-author-name {
+      color: ${(props) => props.theme.text};
+      background: ${(props) => props.theme.itemBackground};
+    }
+`;
 
 const CardWrapper = styled.div`
   margin-bottom: 20px;
+`;
+
+const StyledCard = styled(Card)`
+  background: ${(props) => props.theme.itemBackground};
+  color: ${(props) => props.theme.text};
+  & .ant-card-head,
+  & .ant-card-body,
+  & .ant-card-actions,
+  & .ant-card-meta-title,
+  & .ant-card-meta-description {
+    background: ${(props) => props.theme.itemBackground};
+    color: ${(props) => props.theme.text};
+  }
+
+  & .ant-card-actions svg {
+    color: ${(props) => props.theme.text};
+  }
 `;
 
 const PostCard = ({ post }) => {
@@ -71,9 +100,13 @@ const PostCard = ({ post }) => {
 
   const liked = post.Likers.find((liker) => liker.id === id);
 
+  const { theme } = useContext(ThemeContext);
+
   return (
     <CardWrapper key={post.id}>
-      <Card
+      <Global theme={theme} />
+      <StyledCard
+        theme={theme}
         cover={post.Images[0] && <PostImages images={post.Images} />}
         actions={[
           <RetweetOutlined key="retweet" onClick={onRetweet} />,
@@ -99,21 +132,25 @@ const PostCard = ({ post }) => {
             <EllipsisOutlined />
           </Popover>,
         ]}
-        title={post.RetweetId ? `${post.User.nickname}님이 리트윗하셨습니다.` : null}
-        extra={id && <FollowButton post={post} />}
+        title={post.RetweetId ? `${post.User.nickname}님이 이 글을 끌어 올렸습니다.` : null}
+        // extra={id && <FollowButton post={post} />}
       >
         {post.RetweetId && post.Retweet ? (
-          <Card cover={post.Retweet.Images[0] && <PostImages images={post.Retweet.Images} />}>
-            <Card.Meta
+          <StyledCard cover={post.Retweet.Images[0] && <PostImages images={post.Retweet.Images} />}>
+            <StyledCard.Meta
               avatar={<Avatar>{post.Retweet.User.nickname[0]}</Avatar>}
               title={post.Retweet.User.nickname}
               description={<PostCardContent postData={post.Retweet.content} />}
             />
-          </Card>
+          </StyledCard>
         ) : (
-          <Card.Meta avatar={<Avatar>{post.User.nickname[0]}</Avatar>} title={post.User.nickname} description={<PostCardContent postData={post.content} />} />
+          <StyledCard.Meta
+            avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
+            title={post.User.nickname}
+            description={<PostCardContent postData={post.content} />}
+          />
         )}
-      </Card>
+      </StyledCard>
       {commentFormOpened && (
         <>
           <CommentForm post={post} />
