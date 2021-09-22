@@ -77,7 +77,7 @@ const UserMenu = ({ toggleSignIn, toggleSignUp }) => {
         <ul>
           {!me ? (
             <>
-              <li>
+              <li style={{ borderBottom: '1px solid #ababab80' }}>
                 <button type="button" onClick={toggleSignIn}>
                   로그인
                 </button>
@@ -89,11 +89,16 @@ const UserMenu = ({ toggleSignIn, toggleSignUp }) => {
               </li>
             </>
           ) : (
-            <li>
-              <button type="button" onClick={onLogOut}>
-                로그아웃
-              </button>
-            </li>
+            <>
+              <li style={{ borderBottom: '1px solid #ababab80' }}>
+                <button type="button">내 프로필</button>
+              </li>
+              <li>
+                <button type="button" onClick={onLogOut}>
+                  로그아웃
+                </button>
+              </li>
+            </>
           )}
         </ul>
       </UserMenuDropdown>
