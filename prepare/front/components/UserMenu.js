@@ -90,9 +90,6 @@ const UserMenu = ({ toggleSignIn, toggleSignUp }) => {
             </>
           ) : (
             <>
-              <li style={{ borderBottom: '1px solid #ababab80' }}>
-                <button type="button">내 프로필</button>
-              </li>
               <li>
                 <button type="button" onClick={onLogOut}>
                   로그아웃

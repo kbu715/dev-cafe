@@ -1,13 +1,13 @@
 export const lightTheme = {
   body: '#fcfcfc',
   text: '#363537',
-  mainColor: '#7038d4',
+  mainColor: '#8e44ad',
   itemBackground: '#fcfcfc',
 };
 
 export const darkTheme = {
   body: '#252424',
   text: '#fafafa',
-  mainColor: '#7038d4',
+  mainColor: '#8e44ad',
   itemBackground: '#333333',
 };
