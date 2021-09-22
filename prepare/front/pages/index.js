@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { END } from 'redux-saga';
+import axios from 'axios';
 import AppLayout from '../components/AppLayout';
 import PostForm from '../components/PostForm';
 import PostCard from '../components/PostCard';
@@ -52,6 +53,11 @@ const Home = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
   // console.log(context);
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = ''; // ssr시 쿠키 공유문제 해결
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
   context.store.dispatch({
     type: LOAD_MY_INFO_REQUEST,
   });
@@ -65,11 +71,21 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 
 export default Home;
 
-// useEffect(() => {
-//   dispatch({
-//     type: LOAD_MY_INFO_REQUEST,
-//   });
-//   dispatch({
-//     type: LOAD_POSTS_REQUEST, // 게시글 불러오기
-//   });
-// }, []);
+/*
+
+  // ssr시 쿠키 공유문제 해결
+  무조건 쿠키 일단 비워줘야 합니다.
+  로그인되었을 경우 내 로그인 정보 쿠키를 서버로 보냅니다.
+
+  // 정보
+  브라우저가 요청을 보내는 경우에는 쿠키가 저절로 동봉되어 있습니다. 
+  서버가 요청을 보내는 경우(프론트서버->백엔드서버)에는 
+  직접 쿠키를 넣어주어야 합니다. getServerSideProps는 프론트서버에서 
+  실행되는 코드라서 쿠키를 넣어주어야 합니다.
+
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = ''; 
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+*/
