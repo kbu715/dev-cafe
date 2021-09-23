@@ -88,7 +88,6 @@ const PostCard = ({ post }) => {
   }, [id]);
 
   const onRetweet = useCallback(() => {
-    // 프론트에서도 막아주는게 중요하다.
     if (!id) {
       alert('로그인이 필요합니다.');
     }
@@ -138,14 +137,26 @@ const PostCard = ({ post }) => {
         {post.RetweetId && post.Retweet ? (
           <StyledCard cover={post.Retweet.Images[0] && <PostImages images={post.Retweet.Images} />}>
             <StyledCard.Meta
-              avatar={<Avatar>{post.Retweet.User.nickname[0]}</Avatar>}
+              avatar={
+                <Link href={`/user/${post.Retweet.User.id}`} prefetch={false}>
+                  <a>
+                    <Avatar>{post.Retweet.User.nickname[0]}</Avatar>
+                  </a>
+                </Link>
+              }
               title={post.Retweet.User.nickname}
               description={<PostCardContent postData={post.Retweet.content} />}
             />
           </StyledCard>
         ) : (
           <StyledCard.Meta
-            avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
+            avatar={
+              <Link href={`/user/${post.User.id}`} prefetch={false}>
+                <a>
+                  <Avatar>{post.User.nickname[0]}</Avatar>
+                </a>
+              </Link>
+            }
             title={post.User.nickname}
             description={<PostCardContent postData={post.content} />}
           />
