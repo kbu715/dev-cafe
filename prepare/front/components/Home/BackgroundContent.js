@@ -36,10 +36,9 @@ const HomeBackgroundContent = () => {
   return (
     <Container>
       <Content>
-        <span>디지털 노마드를 꿈꾸며...</span>
+        <span>디지털 노마드를 꿈꾸며</span>
         <span>개발자 여러분들의 최애 카페를</span>
         <span>소개해주세요</span>
-        <span>☕💻😊</span>
       </Content>
     </Container>
   );

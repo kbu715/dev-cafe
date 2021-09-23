@@ -30,7 +30,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="ko-KR">
+      <Html>
         <Head>
           <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
           <link href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css" rel="stylesheet" type="text/css" />
