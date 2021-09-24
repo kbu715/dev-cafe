@@ -2,6 +2,7 @@ const express = require('express');
 const postRouter = require('./routes/post');
 const postsRouter = require('./routes/posts');
 const userRouter = require('./routes/user');
+const hashtagRouter = require('./routes/hashtag');
 const db = require('./models');
 const cors = require('cors');
 const passport = require('passport');
@@ -56,6 +57,7 @@ app.get('/', (req, res) => {
 app.use('/post', postRouter);
 app.use('/posts', postsRouter);
 app.use('/user', userRouter);
+app.use('/hashtag', hashtagRouter);
 
 //에러처리 미들웨어 직접 적어줄 수도 있다.
 /*
