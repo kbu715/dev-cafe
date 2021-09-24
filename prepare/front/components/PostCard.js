@@ -22,6 +22,9 @@ const Global = createGlobalStyle`
       color: ${(props) => props.theme.text};
       background: ${(props) => props.theme.itemBackground};
     }
+    .ant-empty-description {
+      color: ${(props) => props.theme.text};
+    }
 `;
 
 const CardWrapper = styled.div`

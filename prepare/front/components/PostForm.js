@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { BiUpload } from 'react-icons/bi';
 import { UPLOAD_IMAGES_REQUEST, REMOVE_IMAGE, ADD_POST_REQUEST } from '../reducers/post';
 import useInput from '../hooks/useInput';
 
@@ -64,7 +64,9 @@ const PostForm = () => {
       <Input.TextArea value={text} onChange={onChangeText} maxLength={140} placeholder="사진과 함께 글을 올려주세요 😊" />
       <div>
         <input type="file" name="image" multiple hidden ref={imageInput} onChange={onChangeImages} />
-        <Button onClick={onClickImageUpload}>이미지 업로드</Button>
+        <Button onClick={onClickImageUpload}>
+          <BiUpload />
+        </Button>
         <Button type="primary" style={{ float: 'right' }} htmlType="submit" loading={addPostLoading}>
           등록
         </Button>

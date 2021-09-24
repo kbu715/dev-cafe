@@ -21,7 +21,7 @@ export const Overlay = styled.div`
 
 export const Header = styled.header`
   height: 44px;
-  background: white;
+  background: ${({ theme }) => theme.body};
   position: relative;
   padding: 0;
   text-align: center;
@@ -31,6 +31,7 @@ export const Header = styled.header`
     font-size: 17px;
     color: #333;
     line-height: 44px;
+    color: ${({ theme }) => theme.text};
   }
 `;
 
@@ -51,6 +52,9 @@ export const CloseBtn = styled(CloseOutlined)`
   padding: 15px;
   line-height: 14px;
   cursor: pointer;
+  & svg {
+    color: ${({ theme }) => theme.text} !important;
+  }
 `;
 
 export const ImgWrapper = styled.div`
