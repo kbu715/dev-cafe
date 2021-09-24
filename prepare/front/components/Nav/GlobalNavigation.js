@@ -9,6 +9,7 @@ import UserMenu from '../UserMenu';
 import { Container, Row, Column } from '../Grid';
 import SignIn from '../Auth/SignIn';
 import SignUp from '../Auth/SignUp';
+import NavSearch from './NavSearch';
 
 const NavContainer = styled.nav`
   width: 100%;
@@ -51,12 +52,25 @@ const LogoContainer = styled.div`
       css`
         color: ${props.theme.text};
       `};
+
+    @media screen and (max-width: 450px) {
+      display: none;
+    }
+  }
+
+  & span {
+    @media screen and (max-width: 450px) {
+      display: inline-block;
+    }
   }
 `;
 
 const SearchBarContainer = styled.div`
   width: 35%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const NavMenuContainer = styled.div`
@@ -83,10 +97,15 @@ const Navigation = ({ show }) => {
               <ItemsWrapper>
                 <LogoContainer theme={theme} show={show}>
                   <Link href="/">
-                    <a>DEV-CAFE</a>
+                    <div>
+                      <a>DEV-CAFE</a>
+                      <span>☕</span>
+                    </div>
                   </Link>
                 </LogoContainer>
-                <SearchBarContainer />
+                <SearchBarContainer>
+                  <NavSearch show={show} />
+                </SearchBarContainer>
                 <NavMenuContainer>
                   <DarkModeToggle />
                   <UserMenu toggleSignIn={toggleSignIn} toggleSignUp={toggleSignUp} />
