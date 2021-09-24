@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
+import Image from 'next/image';
 import { backgroundImages, getRandomIndex } from '../../utils/index';
 import BackgroundContent from './BackgroundContent';
 
@@ -126,7 +127,7 @@ const HomeBackground = () => {
   return (
     <BackgroundContainer>
       <ImageWrapper>
-        <img src={backgroundImages[backgroundIndex]} alt="main" />
+        <Image src={backgroundImages[backgroundIndex]} alt="main" layout="fill" />
       </ImageWrapper>
       <DotWrapper index={backgroundIndex}>
         {backgroundImages.map((bg, idx) => (
