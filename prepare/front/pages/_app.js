@@ -18,8 +18,9 @@ const App = ({ Component }) => {
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <Head>
+        <link rel="shortcut icon" href="/favicon.ico" />
         <meta charSet="utf-8" />
-        <title>타이틀</title>
+        <title>DEV-CAFE</title>
       </Head>
       <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />
       <Component />
