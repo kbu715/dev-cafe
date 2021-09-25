@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 app.use(cors({
-    origin: ['http://localhost:3060', 'dev-cafe.com', 'http://3.34.194.163'], // origin: true, 해도 된다. 
+    origin: ['http://localhost:3060', 'http://dev-cafe.site'], // origin: true, 해도 된다. 
     credentials: true, //access - control - allow - credentials : true // 쿠키를 전달하고자 한다면 이 설정을
 }));
 
@@ -56,6 +56,11 @@ app.use(session({
   saveUninitialized: false,
   resave: false,
   secret: process.env.COOKIE_SECRET, // Cookie 만들 때 시크릿 키와 login user data로 만드는데, 나중에 Cookie를 시크릿 키로 복원 가능.
+  cookie: {
+    httpOnly: true,
+    secure: false,
+    domain: process.env.NODE_ENV === 'production' && '.dev-cafe.site'
+  }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
