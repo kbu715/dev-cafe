@@ -37,7 +37,7 @@ const upload = multer({
 // text만 있다. json만 있다... 그러면 upload.none()
 router.post('/images', isLoggedIn, upload.array('image'), async (req, res, next) => { // POST /post/images
   // console.log(req.files); // upload 된 이미지에 대한 정보들
-  res.json(req.files.map(file => file.location));
+  res.json(req.files.map((v) => v.location.replace(/\/original\//, '/thumb/')));
 })
 
 router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {
