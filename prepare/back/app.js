@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 app.use(cors({
-    origin: ['http://localhost:3060', 'dev-cafe.com'], // origin: true, 해도 된다. 
+    origin: ['http://localhost:3060', 'dev-cafe.com', 'http://3.34.194.163'], // origin: true, 해도 된다. 
     credentials: true, //access - control - allow - credentials : true // 쿠키를 전달하고자 한다면 이 설정을
 }));
 
