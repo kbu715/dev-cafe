@@ -11,13 +11,18 @@ const db = {};
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
-db.Comment = comment(sequelize, Sequelize);
-db.Hashtag = hashtag(sequelize, Sequelize);
-db.Image = image(sequelize, Sequelize);
-db.Post = post(sequelize, Sequelize);
-db.User = user(sequelize, Sequelize);
+db.Comment = comment;
+db.Hashtag = hashtag;
+db.Image = image;
+db.Post = post;
+db.User = user;
+db.Report = report;
 
-Object.keys(db).forEach((modelName) => {
+Object.keys(db).forEach(modelName => {
+  db[modelName].init(sequelize);
+})
+
+Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
