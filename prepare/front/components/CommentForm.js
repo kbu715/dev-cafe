@@ -2,8 +2,21 @@ import { Button, Form, Input } from 'antd';
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import { ADD_COMMENT_REQUEST } from '../reducers/post';
 import useInput from '../hooks/useInput';
+
+const StyledFormItem = styled(Form.Item)`
+  position: relative;
+  margin: 0;
+`;
+
+const StyledButton = styled(Button)`
+  position: absolute;
+  right: 0;
+  bottom: -40px;
+  z-index: 1;
+`;
 
 const CommentForm = ({ post }) => {
   const dispatch = useDispatch();
@@ -14,7 +27,6 @@ const CommentForm = ({ post }) => {
   const { addCommentDone } = useSelector((state) => state.post);
 
   const onSubmitComment = useCallback(() => {
-    console.log(commentText, post.id);
     dispatch({
       type: ADD_COMMENT_REQUEST,
       data: { content: commentText, postId: post.id, userId: id },
@@ -29,12 +41,12 @@ const CommentForm = ({ post }) => {
 
   return (
     <Form onFinish={onSubmitComment}>
-      <Form.Item style={{ position: 'relative', margin: 0 }}>
+      <StyledFormItem>
         <Input.TextArea rows={4} value={commentText} onChange={onChangeCommentText} />
-        <Button loading={addCommentLoading} style={{ position: 'absolute', right: 0, bottom: -40, zIndex: 1 }} type="primary" htmlType="submit">
+        <StyledButton loading={addCommentLoading} type="primary" htmlType="submit">
           등록
-        </Button>
-      </Form.Item>
+        </StyledButton>
+      </StyledFormItem>
     </Form>
   );
 };
