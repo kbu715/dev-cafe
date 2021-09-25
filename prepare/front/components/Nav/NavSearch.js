@@ -41,6 +41,10 @@ const SearchBar = styled.input`
   &:focus {
     outline: none;
   }
+  &::placeholder {
+    font-size: 13px;
+    text-align: center;
+  }
 `;
 
 const SearchButton = styled.button`

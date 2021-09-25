@@ -49,6 +49,10 @@ const StyledCard = styled(Card)`
   & .ant-card-actions svg {
     color: ${(props) => props.theme.text};
   }
+
+  & strong {
+    color: ${(props) => props.theme.text};
+  }
 `;
 
 const PostCard = ({ post }) => {
@@ -115,8 +119,22 @@ const PostCard = ({ post }) => {
         cover={post.Images[0] && <PostImages images={post.Images} />}
         actions={[
           <RetweetOutlined key="retweet" onClick={onRetweet} />,
-          liked ? <HeartTwoTone twoToneColor={theme.mainColor} key="heart" onClick={onUnlike} /> : <HeartOutlined key="heart" onClick={onLike} />,
-          <MessageOutlined key="message" onClick={onToggleComment} />,
+          liked ? (
+            <span>
+              <HeartTwoTone twoToneColor={theme.mainColor} key="heart" onClick={onUnlike} style={{ marginRight: '5px' }} />
+              <strong>{post.Likers.length}</strong>
+            </span>
+          ) : (
+            <span>
+              <HeartOutlined key="heart" onClick={onLike} style={{ marginRight: '5px' }} />
+              <strong>{post.Likers.length}</strong>
+            </span>
+          ),
+
+          <span>
+            <MessageOutlined key="message" onClick={onToggleComment} style={{ marginRight: '5px' }} />
+            <strong>{post.Comments.length}</strong>
+          </span>,
           <Popover
             key="ellipsis"
             content={
