@@ -16,7 +16,6 @@ db.Hashtag = hashtag;
 db.Image = image;
 db.Post = post;
 db.User = user;
-db.Report = report;
 
 Object.keys(db).forEach(modelName => {
   db[modelName].init(sequelize);
