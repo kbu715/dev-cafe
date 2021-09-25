@@ -101,7 +101,7 @@ const NavSearch = ({ show }) => {
             value={keyword}
             onKeyPress={onEnter}
             onChange={onChangeKeyword}
-            placeholder="검색어를 입력해주세요"
+            placeholder="keyword"
             theme={theme}
             show={show}
             maxLength="17"

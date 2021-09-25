@@ -35,7 +35,6 @@ const User = () => {
       window.removeEventListener('scroll', onScroll);
     };
   }, [mainPosts.length, hasMorePosts, id, loadPostsLoading]);
-  console.log('userInfo', userInfo);
 
   return (
     <AppLayout>

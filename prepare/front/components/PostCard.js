@@ -10,7 +10,6 @@ import moment from 'moment';
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
-// import FollowButton from './FollowButton';
 import { LIKE_POST_REQUEST, REMOVE_POST_REQUEST, RETWEET_REQUEST, UNLIKE_POST_REQUEST } from '../reducers/post';
 import { ThemeContext } from '../pages/_app';
 
@@ -135,28 +134,22 @@ const PostCard = ({ post }) => {
             <MessageOutlined key="message" onClick={onToggleComment} style={{ marginRight: '5px' }} />
             <strong>{post.Comments.length}</strong>
           </span>,
-          <Popover
-            key="ellipsis"
-            content={
-              <Button.Group>
-                {id && post.User.id === id ? (
-                  <>
-                    <Button>수정</Button>
-                    <Button type="danger" onClick={onRemovePost} loading={removePostLoading}>
-                      삭제
-                    </Button>
-                  </>
-                ) : (
-                  <Button>신고</Button>
-                )}
-              </Button.Group>
-            }
-          >
-            <EllipsisOutlined />
-          </Popover>,
+          id && post.User.id === id ? (
+            <Popover
+              key="ellipsis"
+              content={
+                <Button.Group>
+                  <Button type="danger" onClick={onRemovePost} loading={removePostLoading}>
+                    삭제
+                  </Button>
+                </Button.Group>
+              }
+            >
+              <EllipsisOutlined />
+            </Popover>
+          ) : null,
         ]}
         title={post.RetweetId ? `${post.User.nickname}님이 이 글을 끌어 올렸습니다.` : null}
-        // extra={id && <FollowButton post={post} />}
       >
         {post.RetweetId && post.Retweet ? (
           <StyledCard cover={post.Retweet.Images[0] && <PostImages images={post.Retweet.Images} />}>
@@ -175,7 +168,7 @@ const PostCard = ({ post }) => {
           </StyledCard>
         ) : (
           <>
-            <div style={{ float: 'right' }}>{moment(post.createdAt).startOf('day').fromNow()}</div>
+            <div style={{ float: 'right' }}>{moment(post.createdAt).endOf('day').fromNow()}</div>
             <StyledCard.Meta
               avatar={
                 <Link href={`/user/${post.User.id}`} prefetch={false}>

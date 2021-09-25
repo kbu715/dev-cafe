@@ -22,7 +22,6 @@ const Home = () => {
 
   useEffect(() => {
     function onScroll() {
-      // console.log(window.scrollY, document.documentElement.clientHeight, document.documentElement.scrollHeight);
       if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 400) {
         if (hasMorePosts && !loadPostsLoading) {
           const lastId = mainPosts[mainPosts.length - 1]?.id;
@@ -52,7 +51,6 @@ const Home = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
-  // console.log(context);
   const cookie = context.req ? context.req.headers.cookie : '';
   axios.defaults.headers.Cookie = ''; // ssr시 쿠키 공유문제 해결
   if (context.req && cookie) {
@@ -64,7 +62,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   context.store.dispatch({
     type: LOAD_POSTS_REQUEST,
   });
-  context.store.dispatch(END); // Request가 Success 될 때까지 기다려줍니다.
+  context.store.dispatch(END); // Request가 Success 될 때까지 기다려줌
 
   await context.store.sagaTask.toPromise();
 });

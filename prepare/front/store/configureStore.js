@@ -10,13 +10,10 @@ const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
 
   // customized action logger middleware
-  const loggerMiddleware =
-    ({ dispatch, getState }) =>
-    (next) =>
-    (action) => {
-      console.log(action);
-      return next(action);
-    };
+  const loggerMiddleware = () => (next) => (action) => {
+    console.log(action);
+    return next(action);
+  };
 
   // saga or thunk in array
   const middlewares = [sagaMiddleware, loggerMiddleware];

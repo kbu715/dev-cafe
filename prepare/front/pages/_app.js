@@ -32,5 +32,3 @@ App.propTypes = {
 };
 
 export default wrapper.withRedux(App);
-
-// withRedux, withReduxSaga ==> HOC

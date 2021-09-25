@@ -15,7 +15,6 @@ const PostForm = () => {
     imageInput.current.click();
   }, [imageInput.current]);
 
-  // 서버에서 에러가 날 수도 있기에 이렇게 처리하는게 옳다.
   useEffect(() => {
     if (addPostDone) {
       setText('');
@@ -38,15 +37,14 @@ const PostForm = () => {
   }, [text, imagePaths]);
 
   const onChangeImages = useCallback((e) => {
-    console.log('images', e.target.files);
-    const imageFormData = new FormData(); // FormData -> multipart/form-data 형식으로 서버로 보낼 수 있다. // 그래야 multer가 처리
+    const imageFormData = new FormData(); // FormData -> multipart/form-data 형식으로 서버로 보냄 *multer가 처리하기 위해서
     [].forEach.call(e.target.files, (f) => {
       imageFormData.append('image', f);
     });
     dispatch({
       type: UPLOAD_IMAGES_REQUEST,
       data: imageFormData,
-    }); // Array.from(e.target.files).forEach((file) => console.log(file.filename));
+    });
   }, []);
 
   const onRemoveImage = useCallback(
