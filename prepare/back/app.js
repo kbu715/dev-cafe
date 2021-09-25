@@ -76,7 +76,7 @@ app.use((err, req, res, next) => {
 });
 */
 
-app.listen(3065, () => console.log(`🌈 Server is running`));
+app.listen(80, () => console.log(`🌈 Server is running`));
 
 // app.use('/post', postRouter);
 
