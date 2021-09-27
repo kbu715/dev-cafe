@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   position: absolute;
-  left: 7%;
-  top: 60%;
+  left: 10%;
+  top: 70%;
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -12,15 +12,15 @@ const Container = styled.div`
   align-items: center;
   @media screen and (max-width: 450px) {
     left: 50%;
-    top: 60%;
+    top: 70%;
     transform: translateX(-50%);
   }
 `;
 
 const Content = styled.div`
   font-size: 1.5rem;
-  font-weight: 600;
-  color: white;
+  font-weight: 800;
+  color: #fafafa;
   line-height: 1.2;
   display: flex;
   flex-direction: column;

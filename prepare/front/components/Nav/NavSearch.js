@@ -45,6 +45,12 @@ const SearchBar = styled.input`
     font-size: 13px;
     text-align: center;
   }
+
+  @media screen and (max-width: 450px) {
+    &::placeholder {
+      color: transparent;
+    }
+  }
 `;
 
 const SearchButton = styled.button`

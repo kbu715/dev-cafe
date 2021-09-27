@@ -36,8 +36,8 @@ const DotWrapper = styled.div`
 `;
 
 const Dot = styled.div`
-  width: 15px;
-  height: 15px;
+  width: 5px;
+  height: 5px;
   border-radius: 100%;
   border: 1px solid white;
   background: none;

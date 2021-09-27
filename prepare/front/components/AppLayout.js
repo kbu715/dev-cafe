@@ -98,18 +98,12 @@ const AppLayout = ({ children }) => {
   return (
     <Wrapper>
       <Navigation show={showNav} />
-      <Container>
-        <Row>
-          <Column sm={4} md={12}>
-            <HomeBackground />
-          </Column>
-        </Row>
-      </Container>
+      <HomeBackground />
       <MainContainer>
         <Container>
           <Row>
-            <Column sm={4} md={3} />
-            <Column sm={4} md={6}>
+            <Column sm={4} md={1} lg={2} />
+            <Column sm={4} md={9} lg={8}>
               {children}
             </Column>
           </Row>

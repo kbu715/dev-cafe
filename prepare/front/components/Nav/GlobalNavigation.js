@@ -54,7 +54,7 @@ const LogoContainer = styled.div`
       `};
 
     @media screen and (max-width: 450px) {
-      display: none;
+      font-size: 13px;
     }
   }
 
@@ -66,7 +66,7 @@ const LogoContainer = styled.div`
 `;
 
 const SearchBarContainer = styled.div`
-  width: 35%;
+  width: 30%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -74,7 +74,7 @@ const SearchBarContainer = styled.div`
 `;
 
 const NavMenuContainer = styled.div`
-  width: 30%;
+  width: 35%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -99,7 +99,6 @@ const Navigation = ({ show }) => {
                   <Link href="/">
                     <div>
                       <a>DEV-CAFE</a>
-                      <span>☕</span>
                     </div>
                   </Link>
                 </LogoContainer>
