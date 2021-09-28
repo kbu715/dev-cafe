@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import Image from 'next/image';
@@ -36,8 +36,8 @@ const DotWrapper = styled.div`
 `;
 
 const Dot = styled.div`
-  width: 5px;
-  height: 5px;
+  width: 10px;
+  height: 10px;
   border-radius: 100%;
   border: 1px solid white;
   background: none;
@@ -108,21 +108,21 @@ const HomeBackground = () => {
     setBackgroundIndex(index);
   };
 
-  const rightSlide = () => {
+  const rightSlide = useCallback(() => {
     if (backgroundIndex === backgroundImages.length - 1) {
       setBackgroundIndex(0);
     } else {
       setBackgroundIndex((prev) => prev + 1);
     }
-  };
+  }, [backgroundIndex]);
 
-  const leftSlide = () => {
+  const leftSlide = useCallback(() => {
     if (backgroundIndex === 0) {
       setBackgroundIndex(backgroundImages.length - 1);
     } else {
       setBackgroundIndex((prev) => prev - 1);
     }
-  };
+  }, [backgroundIndex]);
 
   return (
     <BackgroundContainer>

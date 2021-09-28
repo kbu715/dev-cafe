@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { END } from 'redux-saga';
-
+import Head from 'next/head';
 import axios from 'axios';
 import { LOAD_HASHTAG_POSTS_REQUEST } from '../../reducers/post';
 import PostCard from '../../components/PostCard';
@@ -36,6 +36,14 @@ const Hashtag = () => {
 
   return (
     <AppLayout>
+      <Head>
+        <title>{tag}관련 게시글</title>
+        <meta name="description" content={`${tag}관련 게시글`} />
+        <meta property="og:title" content={`${tag}`} />
+        <meta property="og:description" content={`${tag}관련 게시글`} />
+        <meta property="og:image" content="/assets/images/main01.jpg" />
+        <meta property="og:url" content={`https://localhost:3060/hashtag/${tag}`} />
+      </Head>
       {mainPosts.map((c) => (
         <PostCard key={c.id} post={c} />
       ))}

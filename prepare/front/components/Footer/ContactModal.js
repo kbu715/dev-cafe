@@ -3,7 +3,7 @@ import { AiOutlineMail } from 'react-icons/ai';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { ThemeContext } from '../../pages/_app';
-import { GFOOTER_Z_INDEX } from '../../utils/constant';
+import { EMAIL, GFOOTER_Z_INDEX } from '../../utils/constant';
 
 const ModalContainer = styled.div`
   width: 100vw;
@@ -71,7 +71,7 @@ const ContactModal = ({ trigger }) => {
           <AiOutlineMail size={20} />
           <div>
             <address>
-              <a href="mailto:kbu715@gmail.com">kbu715@gmail.com</a>
+              <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             </address>
           </div>
         </ModalContent>

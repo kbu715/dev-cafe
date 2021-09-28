@@ -5,8 +5,8 @@ import { RetweetOutlined, HeartTwoTone, HeartOutlined, MessageOutlined, Ellipsis
 import styled, { createGlobalStyle } from 'styled-components';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-
 import moment from 'moment';
+import { LOGIN_ALERT } from '../utils/constant';
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
@@ -64,7 +64,7 @@ const PostCard = ({ post }) => {
 
   const onLike = useCallback(() => {
     if (!id) {
-      alert('로그인이 필요합니다.');
+      alert(LOGIN_ALERT);
     }
     dispatch({
       type: LIKE_POST_REQUEST,
@@ -74,7 +74,7 @@ const PostCard = ({ post }) => {
 
   const onUnlike = useCallback(() => {
     if (!id) {
-      alert('로그인이 필요합니다.');
+      alert(LOGIN_ALERT);
     }
     dispatch({
       type: UNLIKE_POST_REQUEST,
@@ -88,7 +88,7 @@ const PostCard = ({ post }) => {
 
   const onRemovePost = useCallback(() => {
     if (!id) {
-      alert('로그인이 필요합니다.');
+      alert(LOGIN_ALERT);
     }
     dispatch({
       type: REMOVE_POST_REQUEST,
@@ -98,7 +98,7 @@ const PostCard = ({ post }) => {
 
   const onRetweet = useCallback(() => {
     if (!id) {
-      alert('로그인이 필요합니다.');
+      alert(LOGIN_ALERT);
     }
     dispatch({
       type: RETWEET_REQUEST,

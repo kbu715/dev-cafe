@@ -19,6 +19,7 @@ export const StyledContainer = styled.div`
 export const StyledColumn = styled.div`
   width: ${({ sm }) => `${(100 / 4) * sm}%`};
   padding: 0 ${({ theme }) => theme.gutter};
+  margin: 0 auto;
   ${({ md }) =>
     md &&
     media.greaterThan('tablet')`

@@ -1,46 +1,15 @@
-import React, { useLayoutEffect, useState, useEffect, useContext } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FaLongArrowAltUp } from 'react-icons/fa';
 import { Row, Column, Container } from './Grid';
 import Navigation from './Nav/GlobalNavigation';
-import { GNB_HEIGHT, SCROLLTOTOPBTN_Z_INDEX_ACTIVE, SCROLLTOTOPBTN_Z_INDEX_INACTIVE } from '../utils/constant';
+import { GNB_HEIGHT } from '../utils/constant';
 import GlobalFooter from './Footer/GlobalFooter';
 import HomeBackground from './Home/Background';
-import { ThemeContext } from '../pages/_app';
+import ScrollToTopButton from './Home/ScrollToTopButton';
 
 const Wrapper = styled.div`
   position: relative;
-`;
-
-const ScrollTopBtn = styled.button`
-  position: fixed;
-  opacity: ${({ btnStatus }) => (btnStatus ? 1 : 0)};
-  bottom: 80px;
-  right: 40px;
-  z-index: ${({ btnStatus }) => (btnStatus ? SCROLLTOTOPBTN_Z_INDEX_ACTIVE : SCROLLTOTOPBTN_Z_INDEX_INACTIVE)};
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  background: ${({ theme }) => theme.itemBackground};
-  color: ${({ theme }) => theme.mainColor};
-  border: 2px solid ${({ theme }) => theme.mainColor};
-  font-size: 18px;
-  font-weight: bold;
-  letter-spacing: -0.06em;
-  cursor: pointer;
-  transition: opacity 0.3s ease-in;
-
-  &:hover,
-  &:focus,
-  &:active {
-    outline: none;
-  }
-
-  @media screen and (max-width: 450px) {
-    bottom: 50px;
-    right: 20px;
-  }
 `;
 
 const MainContainer = styled.main`
@@ -48,29 +17,7 @@ const MainContainer = styled.main`
 `;
 
 const AppLayout = ({ children }) => {
-  const { theme } = useContext(ThemeContext);
-
   const [showNav, setShowNav] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const [btnStatus, setBtnStatus] = useState(false);
-
-  const handleScrollBtn = () => {
-    setScrollY(window.pageYOffset);
-    if (scrollY > 2000) {
-      setBtnStatus(true);
-    } else {
-      setBtnStatus(false);
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-    setScrollY(0);
-    setBtnStatus(false);
-  };
 
   const handleScroll = () => {
     if (window.scrollY >= GNB_HEIGHT) {
@@ -79,16 +26,6 @@ const AppLayout = ({ children }) => {
       setShowNav(false);
     }
   };
-
-  useEffect(() => {
-    const watch = () => {
-      window.addEventListener('scroll', handleScrollBtn);
-    };
-    watch();
-    return () => {
-      window.removeEventListener('scroll', handleScrollBtn);
-    };
-  });
 
   useLayoutEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -103,17 +40,16 @@ const AppLayout = ({ children }) => {
       <MainContainer>
         <Container>
           <Row>
-            <Column sm={4} md={1} lg={2} />
-            <Column sm={4} md={9} lg={8}>
+            <Column sm={4} md={1} />
+            <Column sm={4} md={8}>
               {children}
             </Column>
+            <Column sm={4} md={1} />
           </Row>
         </Container>
       </MainContainer>
+      <ScrollToTopButton />
       <GlobalFooter />
-      <ScrollTopBtn btnStatus={btnStatus} onClick={scrollToTop} theme={theme}>
-        <FaLongArrowAltUp />
-      </ScrollTopBtn>
     </Wrapper>
   );
 };

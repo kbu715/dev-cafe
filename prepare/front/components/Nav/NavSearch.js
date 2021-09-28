@@ -7,14 +7,14 @@ import { ThemeContext } from '../../pages/_app';
 import { lightTheme } from '../../theme';
 import useInput from '../../hooks/useInput';
 
-const SearchBarWrap = styled.div`
+const SearchBarWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const Search = styled.div`
+const SearchBox = styled.div`
   width: 350px;
   position: relative;
   @media screen and (max-width: 500px) {
@@ -99,27 +99,18 @@ const NavSearch = ({ show }) => {
   );
 
   return (
-    <SearchBarWrap>
-      <Search>
+    <SearchBarWrapper>
+      <SearchBox>
         {show ? (
-          <SearchBar
-            type="text"
-            value={keyword}
-            onKeyPress={onEnter}
-            onChange={onChangeKeyword}
-            placeholder="keyword"
-            theme={theme}
-            show={show}
-            maxLength="17"
-          />
+          <SearchBar type="text" value={keyword} onKeyPress={onEnter} onChange={onChangeKeyword} placeholder="keyword" theme={theme} show={show} />
         ) : (
           <SearchBar type="text" value={keyword} onKeyPress={onEnter} onChange={onChangeKeyword} theme={theme} show={show} maxLength="17" />
         )}
         <SearchButton show={show} theme={theme} onClick={onClick}>
           <AiOutlineSearch size={20} />
         </SearchButton>
-      </Search>
-    </SearchBarWrap>
+      </SearchBox>
+    </SearchBarWrapper>
   );
 };
 

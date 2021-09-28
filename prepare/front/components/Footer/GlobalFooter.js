@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineGithub, AiOutlineMail } from 'react-icons/ai';
+import Link from 'next/link';
 import { lightTheme } from '../../theme';
 import { ThemeContext } from '../../pages/_app';
 import ContactModal from './ContactModal';
 
-const Footer = styled.footer`
+const FooterWrapper = styled.footer`
   width: 100%;
   height: 100px;
   border-top: 1px solid ${(props) => (props.theme === lightTheme ? '#bfbac5cc' : '#7b7b7b')};
@@ -15,7 +16,7 @@ const Footer = styled.footer`
   align-items: center;
 `;
 
-const FooterLogoWrapper = styled.div`
+const LogoWrapper = styled.div`
   font-size: 1.1rem;
   font-weight: 700;
   font-family: 'Comfortaa', cursive;
@@ -27,7 +28,7 @@ const FooterLogoWrapper = styled.div`
   }
 `;
 
-const FooterIconWrapper = styled.div`
+const IconWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -52,18 +53,21 @@ const GlobalFooter = () => {
   const contactTrigger = () => setContact((prev) => !prev);
   return (
     <>
-      <Footer theme={theme}>
-        {/* TODO: 나중에 로고로 바꿀까? */}
-        <FooterLogoWrapper theme={theme}>Dev-Cafe</FooterLogoWrapper>
-        <FooterIconWrapper theme={theme}>
+      <FooterWrapper theme={theme}>
+        <LogoWrapper theme={theme}>
+          <Link href="/">
+            <a>Dev-Cafe</a>
+          </Link>
+        </LogoWrapper>
+        <IconWrapper theme={theme}>
           <Icon>
             <AiOutlineGithub size={28} onClick={() => window.open(`https://github.com/kbu715`, '_blank')} />
           </Icon>
           <Icon>
             <AiOutlineMail size={28} onClick={contactTrigger} />
           </Icon>
-        </FooterIconWrapper>
-      </Footer>
+        </IconWrapper>
+      </FooterWrapper>
       {contact && <ContactModal trigger={contactTrigger} />}
     </>
   );

@@ -47,7 +47,7 @@ const DarkModeToggle = () => {
           }}
         >
           <span role="img" aria-label="lightMode">
-            🔘
+            ⚪
           </span>
         </div>
       }
