@@ -168,7 +168,7 @@ const PostCard = ({ post }) => {
           </StyledCard>
         ) : (
           <>
-            <div style={{ float: 'right' }}>{moment(post.createdAt, 'YYYYMMDD').fromNow()}</div>
+            <div style={{ float: 'right' }}>{moment(post.createdAt).startOf('hour').fromNow()}</div>
             <StyledCard.Meta
               avatar={
                 <Link href={`/user/${post.User.id}`} prefetch={false}>
