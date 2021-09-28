@@ -153,7 +153,7 @@ const PostCard = ({ post }) => {
       >
         {post.RetweetId && post.Retweet ? (
           <StyledCard cover={post.Retweet.Images[0] && <PostImages images={post.Retweet.Images} />}>
-            <div style={{ float: 'right' }}>{moment(post.createdAt).startOf('day').fromNow()}</div>
+            <div style={{ float: 'right' }}>{moment(post.createdAt).format('YYYY/MM/DD')}</div>
             <StyledCard.Meta
               avatar={
                 <Link href={`/user/${post.Retweet.User.id}`} prefetch={false}>
