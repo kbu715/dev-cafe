@@ -44,17 +44,17 @@
 #### - 로그인, 로그아웃, 게시글 작성, 댓글 작성
 ![features01](https://user-images.githubusercontent.com/63832678/135083197-490ddcaf-d0d1-43a1-afab-44732f7317ff.gif)
 
-#### 좋아요, 끌어올리기
+#### - 좋아요, 끌어올리기
 ![features03](https://user-images.githubusercontent.com/63832678/135084397-b13e8ead-a84b-4386-b743-a3f74eb3db06.gif)
 
-#### 이미지 업로드
+#### - 이미지 업로드
 ![features04](https://user-images.githubusercontent.com/63832678/135084879-affb4a95-0b00-42e9-9f1b-d060cb0b891e.gif)
 
-#### 인피니트 스크롤링
+#### - 인피니트 스크롤링
 ![features05](https://user-images.githubusercontent.com/63832678/135085519-f8e01bbe-9261-4e24-a14a-4b4226dee086.gif)
 
-#### 유저 관련 글 검색
+#### - 유저 관련 글 검색
 ![features06](https://user-images.githubusercontent.com/63832678/135085752-666d0388-1f0b-40ef-ba8e-09b2707bf50e.gif)
 
-#### 해시태그 검색
+#### - 해시태그 검색
 ![features07](https://user-images.githubusercontent.com/63832678/135086067-bb77493f-1290-4d02-8152-641f55d3a92a.gif)
