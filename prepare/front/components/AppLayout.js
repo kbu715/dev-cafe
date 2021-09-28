@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { FaLongArrowAltUp } from 'react-icons/fa';
 import { Row, Column, Container } from './Grid';
 import Navigation from './Nav/GlobalNavigation';
 import { GNB_HEIGHT, SCROLLTOTOPBTN_Z_INDEX_ACTIVE, SCROLLTOTOPBTN_Z_INDEX_INACTIVE } from '../utils/constant';
@@ -111,7 +112,7 @@ const AppLayout = ({ children }) => {
       </MainContainer>
       <GlobalFooter />
       <ScrollTopBtn btnStatus={btnStatus} onClick={scrollToTop} theme={theme}>
-        Top
+        <FaLongArrowAltUp />
       </ScrollTopBtn>
     </Wrapper>
   );
