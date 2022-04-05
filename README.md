@@ -58,3 +58,11 @@
 
 #### - 해시태그 검색
 ![features07](https://user-images.githubusercontent.com/63832678/135086067-bb77493f-1290-4d02-8152-641f55d3a92a.gif)
+
+
+## To do list
+
+1. 타입스크립트 구현
+2. 지역별 카테고리화
+3. 소셜 로그인
+4. 지도 API 위치 검색
