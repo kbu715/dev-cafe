@@ -1,57 +1,62 @@
-const express = require('express');
-const postRouter = require('./routes/post');
-const postsRouter = require('./routes/posts');
-const userRouter = require('./routes/user');
-const hashtagRouter = require('./routes/hashtag');
-const db = require('./models');
-const cors = require('cors');
-const passport = require('passport');
-const passportConfig = require('./passport');
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
-const dotenv = require('dotenv');
-const morgan = require('morgan');
-const path = require('path');
-const hpp = require('hpp');
-const helmet = require('helmet');
+const express = require("express");
+const postRouter = require("./routes/post");
+const postsRouter = require("./routes/posts");
+const userRouter = require("./routes/user");
+const hashtagRouter = require("./routes/hashtag");
+const db = require("./models");
+const cors = require("cors");
+const passport = require("passport");
+const passportConfig = require("./passport");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
+const morgan = require("morgan");
+const path = require("path");
+const hpp = require("hpp");
+const helmet = require("helmet");
 
 dotenv.config();
 
+// express 호출!
 const app = express();
-
 
 db.sequelize
   .sync()
   .then(() => {
-    console.log('🌈  DB Connected 🌈');
+    console.log("🌈  DB Connected 🌈");
   })
   .catch(console.error);
 
 passportConfig();
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(morgan('combined'));
+if (process.env.NODE_ENV === "production") {
+  app.use(morgan("combined"));
   app.use(hpp());
   app.use(helmet());
-  app.use(cors({
-    origin: 'http://dev-cafe.site',
-    credentials: true,
-}));
+  app.use(
+    cors({
+      origin: "http://dev-cafe.site",
+      credentials: true,
+    })
+  );
 } else {
-  app.use(morgan('dev'));
-  app.use(cors({
-    origin: true,
-    credentials: true,
-}));
+  app.use(morgan("dev"));
+  app.use(
+    cors({
+      origin: true,
+      credentials: true,
+    })
+  );
 }
 
-
-app.use(cors({
-    origin: ['http://localhost:3060', 'http://dev-cafe.site'], // origin: true, 해도 된다. 
+app.use(
+  cors({
+    origin: ["http://localhost:3060", "http://dev-cafe.site"], // origin: true, 해도 된다.
     credentials: true, //access - control - allow - credentials : true // 쿠키를 전달하고자 한다면 이 설정을
-}));
+  })
+);
 
-app.use('/', express.static(path.join(__dirname, 'uploads')));
+app.use("/", express.static(path.join(__dirname, "uploads")));
 
 // front에서 보낸 data를 req.body에 넣어주는 역할을 한다.
 // router보다 위에 위치 시켜야 먼저 설정을 한다.
@@ -60,27 +65,30 @@ app.use(express.urlencoded({ extended: true })); // Form Submit 했을 때 urlen
 
 // session 관련
 app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(session({
-  saveUninitialized: false,
-  resave: false,
-  secret: process.env.COOKIE_SECRET, // Cookie 만들 때 시크릿 키와 login user data로 만드는데, 나중에 Cookie를 시크릿 키로 복원 가능.
-  cookie: {
-    httpOnly: true,
-    secure: false,
-    domain: process.env.NODE_ENV === 'production' && '.dev-cafe.site'
-  }
-}));
+app.use(
+  session({
+    saveUninitialized: false,
+    resave: false,
+    secret: process.env.COOKIE_SECRET, // Cookie 만들 때 시크릿 키와 login user data로 만드는데, 나중에 Cookie를 시크릿 키로 복원 가능.
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      domain: process.env.NODE_ENV === "production" && ".dev-cafe.site",
+    },
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (req, res) => {
-  res.send('HELLO EXPRESS');
+app.get("/", (req, res) => {
+  res.send("HELLO EXPRESS");
 });
 
-app.use('/post', postRouter);
-app.use('/posts', postsRouter);
-app.use('/user', userRouter);
-app.use('/hashtag', hashtagRouter);
+// url에 prefix로 붙는다
+app.use("/post", postRouter);
+app.use("/posts", postsRouter);
+app.use("/user", userRouter);
+app.use("/hashtag", hashtagRouter);
 
 //에러처리 미들웨어 직접 적어줄 수도 있다.
 /*
