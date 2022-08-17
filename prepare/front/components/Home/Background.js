@@ -21,29 +21,29 @@ const ImageWrapper = styled.div`
   }
 `;
 
-const DotWrapper = styled.div`
-  position: absolute;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: row;
-  & div {
-    &:nth-child(${(props) => props.index + 1}) {
-      background: white;
-    }
-  }
-`;
+// const DotWrapper = styled.div`
+//   position: absolute;
+//   bottom: 22px;
+//   left: 50%;
+//   transform: translateX(-50%);
+//   display: flex;
+//   flex-direction: row;
+//   & div {
+//     &:nth-child(${(props) => props.index + 1}) {
+//       background: white;
+//     }
+//   }
+// `;
 
-const Dot = styled.div`
-  width: 10px;
-  height: 10px;
-  border-radius: 100%;
-  border: 1px solid white;
-  background: none;
-  cursor: pointer;
-  margin: 0 3px;
-`;
+// const Dot = styled.div`
+//   width: 10px;
+//   height: 10px;
+//   border-radius: 100%;
+//   border: 1px solid white;
+//   background: none;
+//   cursor: pointer;
+//   margin: 0 3px;
+// `;
 
 const LeftSlideButton = styled.div`
   width: 34px;
@@ -104,9 +104,9 @@ const randomIndex = getRandomIndex(3);
 const HomeBackground = () => {
   const [backgroundIndex, setBackgroundIndex] = useState(randomIndex);
 
-  const handleDotClick = (index) => {
-    setBackgroundIndex(index);
-  };
+  // const handleDotClick = (index) => {
+  //   setBackgroundIndex(index);
+  // };
 
   const rightSlide = useCallback(() => {
     if (backgroundIndex === backgroundImages.length - 1) {
@@ -129,11 +129,11 @@ const HomeBackground = () => {
       <ImageWrapper>
         <Image src={backgroundImages[backgroundIndex]} alt="main" layout="fill" />
       </ImageWrapper>
-      <DotWrapper index={backgroundIndex}>
+      {/* <DotWrapper index={backgroundIndex}>
         {backgroundImages.map((bg, idx) => (
           <Dot key={bg} onClick={() => handleDotClick(idx)} />
         ))}
-      </DotWrapper>
+      </DotWrapper> */}
       <BackgroundContent />
       <LeftSlideButton onClick={leftSlide}>
         <BiChevronLeft size={30} />

@@ -16,40 +16,40 @@ const DarkModeToggle = () => {
     <Switch
       checked={checked}
       onChange={toggleTheme}
-      onColor="#464646"
-      offColor="#464646"
-      handleDiameter={20}
-      width={46}
-      height={22}
+      onColor="#87ceeb"
+      offColor="#02012c"
+      handleDiameter={18}
       uncheckedIcon={
-        <div
+        <span
           style={{
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            top: 1,
+            fontSize: 12,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            height: '100%',
-            fontSize: 14,
           }}
         >
-          <span role="img" aria-label="darkMode">
-            ⚫
-          </span>
-        </div>
+          🌙
+        </span>
       }
       checkedIcon={
-        <div
+        <span
           style={{
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            top: 1,
+            fontSize: 12,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            height: '100%',
-            fontSize: 14,
           }}
         >
-          <span role="img" aria-label="lightMode">
-            ⚪
-          </span>
-        </div>
+          🌞
+        </span>
       }
     />
   );
