@@ -1,4 +1,4 @@
-export const getRandomIndex = (n) => {
+export const getRandomIndex = (n: number) => {
   return Math.floor(Math.random() * n);
 };
 
