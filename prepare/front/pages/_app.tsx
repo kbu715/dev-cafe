@@ -1,35 +1,47 @@
-import PropTypes from 'prop-types';
-import React, { createContext } from 'react';
+import React, { createContext, useRef } from 'react';
 import Head from 'next/head';
+import { AppProps } from 'next/app';
 import 'antd/dist/antd.css';
 import wrapper from '../store/configureStore';
 import { GlobalStyle } from '../global-styles';
 import { useDarkMode } from '../hooks/useDarkMode';
-import { lightTheme, darkTheme } from '../theme';
+import { lightTheme, darkTheme, ThemeType } from '../theme';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
-export const ThemeContext = createContext({
-  theme: darkTheme,
-  setTheme: () => {},
-});
-
-const App = ({ Component }) => {
-  const [theme, toggleTheme] = useDarkMode();
-
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <Head>
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <meta charSet="utf-8" />
-        <title>DEV-CAFE</title>
-      </Head>
-      <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />
-      <Component />
-    </ThemeContext.Provider>
-  );
+type ContextState = {
+  theme: ThemeType;
+  toggleTheme: () => void;
 };
 
-App.propTypes = {
-  Component: PropTypes.elementType.isRequired,
+export const ThemeContext = createContext<ContextState>({
+  theme: darkTheme,
+  toggleTheme: () => {},
+});
+
+const App = ({ Component, pageProps }: AppProps) => {
+  const { theme, toggleTheme } = useDarkMode();
+  const queryClientRef = useRef<QueryClient>();
+  if (!queryClientRef.current) {
+    queryClientRef.current = new QueryClient();
+  }
+
+  return (
+    <QueryClientProvider client={queryClientRef.current}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+          <Head>
+            <link rel="shortcut icon" href="/favicon.ico" />
+            <meta charSet="utf-8" />
+            <title>DEV-CAFE</title>
+          </Head>
+          <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />
+          <Component />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </ThemeContext.Provider>
+      </Hydrate>
+    </QueryClientProvider>
+  );
 };
 
 export default wrapper.withRedux(App);
