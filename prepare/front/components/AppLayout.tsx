@@ -1,5 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Row, Column, Container } from './Grid';
 import Navigation from './Nav/GlobalNavigation';
@@ -16,7 +15,7 @@ const MainContainer = styled.main`
   margin: ${GNB_HEIGHT + 20}px 0;
 `;
 
-const AppLayout = ({ children }) => {
+const AppLayout = ({ children }: { children: ReactNode }) => {
   const [showNav, setShowNav] = useState(false);
 
   const handleScroll = () => {
@@ -27,7 +26,7 @@ const AppLayout = ({ children }) => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
 
     return () => window.removeEventListener('scroll', handleScroll);
@@ -52,10 +51,6 @@ const AppLayout = ({ children }) => {
       <GlobalFooter />
     </Wrapper>
   );
-};
-
-AppLayout.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default AppLayout;
