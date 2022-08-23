@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, VFC } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
@@ -11,7 +11,7 @@ import SignIn from '../Auth/SignIn';
 import SignUp from '../Auth/SignUp';
 import NavSearch from './NavSearch';
 
-const NavContainer = styled.nav`
+const NavContainer = styled.nav<NavagationProps>`
   width: 100%;
   height: ${GNB_HEIGHT}px;
   position: fixed;
@@ -36,7 +36,7 @@ const ItemsWrapper = styled.div`
   height: ${GNB_HEIGHT}px;
 `;
 
-const LogoContainer = styled.div`
+const LogoContainer = styled.div<NavagationProps>`
   width: 35%;
   height: 100%;
   font-size: 20px;
@@ -81,13 +81,17 @@ const NavMenuContainer = styled.div`
   align-items: center;
 `;
 
-const Navigation = ({ show }) => {
+type NavagationProps = {
+  show: boolean;
+};
+
+const Navigation: VFC<NavagationProps> = ({ show }) => {
   const { theme } = useContext(ThemeContext);
   const [signIn, setSignIn] = useState(false);
   const [signUp, setSignUp] = useState(false);
 
-  const toggleSignIn = () => setSignIn((prev) => !prev);
-  const toggleSignUp = () => setSignUp((prev) => !prev);
+  const toggleSignIn: () => void = () => setSignIn((prev) => !prev);
+  const toggleSignUp: () => void = () => setSignUp((prev) => !prev);
   return (
     <>
       <NavContainer theme={theme} show={show}>
