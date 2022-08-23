@@ -1,13 +1,15 @@
-import React, { useState, useContext, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useContext, useCallback, useEffect, useMemo, VFC } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { IoIosClose } from 'react-icons/io';
-import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 import { ThemeContext } from '../../pages/_app';
-import { SIGN_UP_REQUEST } from '../../reducers/user';
 import useInput from '../../hooks/useInput';
 import { MODAL_Z_INDEX } from '../../utils/constant';
+import { useQuery } from 'react-query';
+import User from '../../interfaces/user';
+import { getMyInfo, signUp } from '../../apis/user';
+import axios, { AxiosError } from 'axios';
+import { GetServerSidePropsContext } from 'next';
 
 const SignUpContainer = styled.div`
   width: 100vw;
@@ -115,29 +117,21 @@ const SubmitButton = styled.button`
   }
 `;
 
-const SignUp = ({ toggleSignUp }) => {
+type SignUpProps = {
+  toggleSignUp: () => void;
+};
+
+const SignUp: VFC<SignUpProps> = ({ toggleSignUp }) => {
   const { theme } = useContext(ThemeContext);
-  const dispatch = useDispatch();
-  const { signUpLoading, signUpDone, signUpError, me } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
+  const { data: me } = useQuery<User>('user', getMyInfo);
 
   useEffect(() => {
-    if (me?.id) {
+    if (me) {
+      console.log('redirect to /');
       Router.replace('/');
     }
-  }, [me?.id]);
-
-  useEffect(() => {
-    if (signUpDone) {
-      Router.replace('/');
-      toggleSignUp();
-    }
-  }, [signUpDone]);
-
-  useEffect(() => {
-    if (signUpError) {
-      alert(signUpError);
-    }
-  }, [signUpError]);
+  }, [me]);
 
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
@@ -150,11 +144,22 @@ const SignUp = ({ toggleSignUp }) => {
     if (password !== passwordCheck) {
       return setPasswordError(true);
     }
-    dispatch({
-      type: SIGN_UP_REQUEST,
-      data: { email, password, nickname },
-    });
-  }, [password, passwordCheck]);
+    setLoading(true);
+    signUp({
+      email,
+      nickname,
+      password,
+    })
+      .then(() => {
+        Router.replace('/');
+      })
+      .catch((error: AxiosError) => {
+        alert(error.response?.data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [email, nickname, password, passwordCheck]);
 
   const onChangePasswordCheck = useCallback(
     (e) => {
@@ -167,7 +172,7 @@ const SignUp = ({ toggleSignUp }) => {
   const red = useMemo(() => ({ color: 'red' }), []);
 
   const onCloseClick = useCallback(() => toggleSignUp(), []);
-  const onMaskClick = (e) => {
+  const onMaskClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       toggleSignUp();
     }
@@ -196,7 +201,7 @@ const SignUp = ({ toggleSignUp }) => {
             <input name="password" type="password" required value={passwordCheck} onChange={onChangePasswordCheck} placeholder="비밀번호 확인" />
             {passwordError && <div style={red}>비밀번호가 일치하지 않습니다.</div>}
           </InputWrap>
-          <SubmitButton type="submit" disabled={signUpLoading} onClick={onSubmit}>
+          <SubmitButton type="submit" disabled={loading} onClick={onSubmit}>
             회원가입
           </SubmitButton>
         </SignUpMain>
@@ -205,8 +210,25 @@ const SignUp = ({ toggleSignUp }) => {
   );
 };
 
-SignUp.propTypes = {
-  toggleSignUp: PropTypes.func.isRequired,
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  const cookie = context.req ? context.req.headers.cookie : '';
+  console.log(cookie);
+  axios.defaults.headers.Cookie = '';
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  const response = await getMyInfo();
+  if (response.data) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 };
 
 export default SignUp;

@@ -1,12 +1,13 @@
-import React, { useContext, useCallback, useEffect } from 'react';
+import React, { useContext, useCallback, useState, VFC } from 'react';
 import styled from 'styled-components';
 import { IoIosClose } from 'react-icons/io';
-import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { ThemeContext } from '../../pages/_app';
 import { MODAL_Z_INDEX } from '../../utils/constant';
-import { loginRequestAction } from '../../reducers/user';
 import useInput from '../../hooks/useInput';
+import { useMutation, useQueryClient } from 'react-query';
+import { logIn } from '../../apis/user';
+import User from '../../interfaces/user';
+import { AxiosError } from 'axios';
 
 const SignInContainer = styled.div`
   width: 100vw;
@@ -114,37 +115,45 @@ const LoginButton = styled.button`
   }
 `;
 
-const SignIn = ({ toggleSignIn }) => {
+type SignInProps = {
+  toggleSignIn: () => void;
+};
+
+const SignIn: VFC<SignInProps> = ({ toggleSignIn }) => {
+  const queryClient = useQueryClient();
   const { theme } = useContext(ThemeContext);
-
-  const { logInLoading, logInError } = useSelector((state) => state.user);
-
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
 
-  useEffect(() => {
-    if (logInError) {
-      alert(logInError);
-    }
-  }, [logInError]);
-
-  const onSubmitForm = useCallback(
-    (e) => {
-      e.preventDefault();
-      dispatch(
-        loginRequestAction({
-          email,
-          password,
-        }),
-      );
-      toggleSignIn();
+  const mutation = useMutation<User, AxiosError, { email: string; password: string }>('user', logIn, {
+    // This function will fire before the mutation function is fired
+    // and is passed the same variables the mutation function would receive
+    onMutate: (data: { email: string; password: string }) => {
+      console.log(data);
+      setLoading(true);
     },
-    [email, password],
-  );
+    onError: (error) => {
+      alert(error.response?.data);
+    },
+    onSuccess: (user) => {
+      console.log(user);
+      // setQueryData is sync and assumes that you already synchronously have the data available.
+      // 이미 사용가능한 데이터가 있다고 가정할 때
+      queryClient.setQueryData('user', user);
+    },
+    onSettled: () => {
+      setLoading(false);
+    },
+  });
+
+  const onSubmitForm = useCallback(() => {
+    mutation.mutate({ email, password });
+    toggleSignIn();
+  }, [email, password, mutation, toggleSignIn]);
 
   const onCloseClick = useCallback(() => toggleSignIn(), []);
-  const onMaskClick = (e) => {
+  const onMaskClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       toggleSignIn();
     }
@@ -166,17 +175,13 @@ const SignIn = ({ toggleSignIn }) => {
           <InputWrap>
             <input type="password" name="user-password" required value={password} onChange={onChangePassword} placeholder="비밀번호" />
           </InputWrap>
-          <LoginButton type="submit" disabled={logInLoading}>
+          <LoginButton type="submit" disabled={loading}>
             로그인
           </LoginButton>
         </SignInMain>
       </SignInWrap>
     </SignInContainer>
   );
-};
-
-SignIn.propTypes = {
-  toggleSignIn: PropTypes.func.isRequired,
 };
 
 export default SignIn;
