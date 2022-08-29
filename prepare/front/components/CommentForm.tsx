@@ -1,10 +1,12 @@
 import { Button, Form, Input } from 'antd';
-import React, { useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useState, VFC } from 'react';
 import styled from 'styled-components';
-import { ADD_COMMENT_REQUEST } from '../reducers/post';
 import useInput from '../hooks/useInput';
+import Post from '../interfaces/post';
+import { useQuery } from 'react-query';
+import User from '../interfaces/user';
+import { getMyInfo } from '../apis/user';
+import { addComment } from '../apis/post';
 
 const StyledFormItem = styled(Form.Item)`
   position: relative;
@@ -18,41 +20,39 @@ const StyledButton = styled(Button)`
   z-index: 1;
 `;
 
-const CommentForm = ({ post }) => {
-  const dispatch = useDispatch();
-  const { addCommentLoading } = useSelector((state) => state.post);
+const CommentForm: VFC<{ post: Post }> = ({ post }) => {
+  const [loading, setLoading] = useState(false);
+  const { data: me } = useQuery<User>('user', getMyInfo);
 
   const [commentText, onChangeCommentText, setCommentText] = useInput('');
-  const id = useSelector((state) => state.user.me?.id);
-  const { addCommentDone } = useSelector((state) => state.post);
 
   const onSubmitComment = useCallback(() => {
-    dispatch({
-      type: ADD_COMMENT_REQUEST,
-      data: { content: commentText, postId: post.id, userId: id },
-    });
-  }, [commentText, id]);
-
-  useEffect(() => {
-    if (addCommentDone) {
-      setCommentText('');
+    if (me) {
+      setLoading(true);
+      addComment({
+        content: commentText,
+        postId: post.id,
+        userId: me.id,
+      })
+        .then(() => {
+          setCommentText('');
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
-  }, [addCommentDone]);
+  }, [post.id, commentText, me, setCommentText]);
 
   return (
     <Form onFinish={onSubmitComment}>
       <StyledFormItem>
         <Input.TextArea rows={4} value={commentText} onChange={onChangeCommentText} />
-        <StyledButton loading={addCommentLoading} type="primary" htmlType="submit">
+        <StyledButton loading={loading} type="primary" htmlType="submit">
           등록
         </StyledButton>
       </StyledFormItem>
     </Form>
   );
-};
-
-CommentForm.propTypes = {
-  post: PropTypes.object.isRequired,
 };
 
 export default CommentForm;
